@@ -1,4 +1,4 @@
-# Light Painter
+# Light Painter (Extended)
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
@@ -9,6 +9,7 @@ Screen space point lights using MC's exposed transparency shaders.
 - low performance hit
 - datapack includes custom spawners for placing and deleting lights
 - correctly blends with transparency
+- range up to **128 blocks**
 
 ### What it does not do:
 - render out of frame lights
