@@ -50,20 +50,20 @@ To access lights to move or modify them (datapack):
 
 ### Shading Passes and Descriptions
 #### filter
-    filter `itemEntity` target for light markers.
+Filter `itemEntity` target for light markers.
 #### centers
-    finds approximate centers of each light marker by searching outward from current pixel. Accounts for FOV distortion.
+Finds approximate centers of each light marker by searching outward from current pixel. Accounts for FOV distortion.
 #### centers_med
-    attempts to find exact center of approximate center cluster.
+Attempts to find exact center of approximate center cluster.
 #### centers_fine
-    account for fp inaccuracy and ensures gurantees single pixel center per light.
+Account for fp inaccuracy and ensures gurantees single pixel center per light.
 #### aggregate_1, aggregate_2, aggregate_3, aggregate_4, aggregate_5
-    compute layers in search tree.
+Compute layers in search tree.
 #### aggregate_6
-    traverses search tree to store light screen coordinates into bottom two pixel rows.
+Traverses search tree to store light screen coordinates into bottom two pixel rows.
 #### light
-    computes lighting color at each screen pixel. This pass is run on both diffuse and transparency targets.
+Computes lighting color at each screen pixel. This pass is run on both diffuse and transparency targets.
 #### light_apply, light_apply_t
-    apply lighting to designated target.
+Apply lighting to designated target.
 #### transparency
-    custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
+Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
