@@ -9,6 +9,7 @@ Screen space point lights using MC's exposed transparency shaders.
 - low performance hit
 - datapack includes custom spawners for placing and deleting lights
 - correctly blends with transparency
+- range up to **48 blocks**. check out the `extended_range` branch for a longer range variant (less reliable up close)
 
 ### What it does not do:
 - render out of frame lights
