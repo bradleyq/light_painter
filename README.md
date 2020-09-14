@@ -1,22 +1,22 @@
 # Light Painter
 <img src="/images/2.png" alt="Image3"/>
 
-### Overview
+## Overview
 Screen space point lights using MC's exposed transparency shaders. 
 
-#### What it does:
+### What it does:
 - dynamic placable lights of any hue
 - low performance hit
 - datapack includes custom spawners for placing and deleting lights
 - correctly blends with transparency
 
-#### What it does not do:
+### What it does not do:
 - render out of frame lights
 - render occluded lights
 - does not factor in diffuse lighting equation (cos theta)
 - shadows / occlusion checking
 
-#### What is achievable:
+### What is achievable:
 <table>
   <tr>
     <th width="33%">
@@ -34,10 +34,10 @@ Screen space point lights using MC's exposed transparency shaders.
   </tr>
 </table>
 
-### Design:
+## Design
 This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through the idea of using shading passes to store point light information in a designated strip on the screen. This allows for minimal accesses during the final rendering pass, letting performance scale linarly with number of lights. In most cases, the performance hit induced by armor stands will outweigh the performance hit of the lights.
 
-### Usage
+## Usage
 See License.md for license info. This utility is a resourcepack + datapack combo. Installation of the datapack is not strictly required, but it is useful for ease of use.
 To get lights (datapack):
 ```
@@ -48,22 +48,30 @@ To access lights to move or modify them (datapack):
 /execute as @e[tag=light,sort=nearest,limit=1] ....
 ```
 
-### Shading Passes and Descriptions
+## Shading Passes and Descriptions
 #### filter
 Filter `itemEntity` target for light markers.
+<p>&nbsp;</p>
 #### centers
 Finds approximate centers of each light marker by searching outward from current pixel. Accounts for FOV distortion.
+<p>&nbsp;</p>
 #### centers_med
 Attempts to find exact center of approximate center cluster.
+<p>&nbsp;</p>
 #### centers_fine
 Account for fp inaccuracy and ensures gurantees single pixel center per light.
+<p>&nbsp;</p>
 #### aggregate_1, aggregate_2, aggregate_3, aggregate_4, aggregate_5
 Compute layers in search tree.
+<p>&nbsp;</p>
 #### aggregate_6
 Traverses search tree to store light screen coordinates into bottom two pixel rows.
+<p>&nbsp;</p>
 #### light
 Computes lighting color at each screen pixel. This pass is run on both diffuse and transparency targets.
+<p>&nbsp;</p>
 #### light_apply, light_apply_t
 Apply lighting to designated target.
+<p>&nbsp;</p>
 #### transparency
 Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
