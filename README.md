@@ -56,7 +56,7 @@ To access lights to move or modify them (datapack):
 #### centers_med
 - Attempts to find exact center of approximate center cluster.
 #### centers_fine
-- Account for fp inaccuracy and ensures gurantees single pixel center per light.
+- Account for fp inaccuracy and gurantees single pixel center per light.
 #### aggregate_1, aggregate_2, aggregate_3, aggregate_4, aggregate_5
 - Compute layers in search tree.
 #### aggregate_6
