@@ -1,8 +1,8 @@
 # Light Painter
+<img src="/images/2.png" alt="Image3"/>
 
 ### Overview
 Screen space point lights using MC's exposed transparency shaders. 
-<img src="/images/2.png" alt="Image3"/>
 
 #### What it does:
 - dynamic placable lights of any hue
