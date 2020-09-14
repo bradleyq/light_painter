@@ -67,3 +67,7 @@ Filter `itemEntity` target for light markers.
 - Apply lighting to designated target.
 #### transparency
 - Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
+
+
+## Credits
+- example screenshots are from the map "Cyberpunk Project" by Elysium Fire
