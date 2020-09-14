@@ -25,7 +25,7 @@
             "uniforms": [
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 128.0 ]
                 }
             ]
         },
@@ -42,7 +42,7 @@
             "uniforms": [
                 {
                     "name":"ScreenTolerance",
-                    "values": [ 0.005 ]
+                    "values": [ 0.009 ]
                 },
                 {
                     "name":"ScreenMaxR",
@@ -50,11 +50,11 @@
                 },
                 {
                     "name":"PhysicalR",
-                    "values": [ 0.034 ]
+                    "values": [ 0.1 ]
                 },
                 {
                     "name":"DepthTolerance",
-                    "values": [ 0.1 ]
+                    "values": [ 0.22 ]
                 },
                 {
                     "name":"FOV",
@@ -75,15 +75,15 @@
             "uniforms": [
                 {
                     "name":"ScreenTolerance",
-                    "values": [ 0.005 ]
+                    "values": [ 0.009 ]
                 },
                 {
                     "name":"PhysicalR",
-                    "values": [ 0.034 ]
+                    "values": [ 0.1 ]
                 },
                 {
                     "name":"DepthTolerance",
-                    "values": [ 0.1 ]
+                    "values": [ 0.22 ]
                 },
                 {
                     "name":"FOV",
@@ -221,7 +221,7 @@
                 },
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 128.0 ]
                 }
             ]
         },
@@ -259,7 +259,7 @@
                 },
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 128.0 ]
                 }
             ]
         },
@@ -268,7 +268,6 @@
             "intarget": "swap1",
             "outtarget": "temporal2"
         },
-        
         {
             "name": "light_apply",
             "intarget": "minecraft:main",
