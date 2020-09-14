@@ -50,7 +50,7 @@ To access lights to move or modify them (datapack):
 
 ## Shading Passes and Descriptions
 #### filter
-Filter `itemEntity` target for light markers.
+- Filter `itemEntity` target for light markers.
 #### centers
 - Finds approximate centers of each light marker by searching outward from current pixel. Accounts for FOV distortion.
 #### centers_med
