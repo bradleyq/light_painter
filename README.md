@@ -8,7 +8,7 @@ Screen space point lights using MC's exposed transparency shaders.
 - dynamic placable lights of any hue
 - low performance hit
 - datapack includes custom spawners for placing and deleting lights
-- functions correctly with transparency
+- correctly blends with transparency
 
 #### What it does not do:
 - render out of frame lights
