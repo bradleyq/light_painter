@@ -35,7 +35,7 @@ Screen space point lights using MC's exposed transparency shaders.
 </table>
 
 ## Design and Performance
-This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated strip on the screen. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. In most cases, the performance hit induced by armor stands will outweigh the performance hit of the lights.
+This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated strip on the screen. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. In most cases, the performance hit induced by armor stands will outweigh the performance hit of the lighting calculations.
 
 ## Usage
 See License.md for license info. This utility is a resourcepack + datapack combo. Installation of the datapack is not strictly required, but it is useful for ease of use.
