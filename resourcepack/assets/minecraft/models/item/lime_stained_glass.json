@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/lime_stained_glass",
+  "overrides": [
+    { "predicate": { "custom_model_data":1 }, "model": "minecraft:item/light" },
+    { "predicate": { "custom_model_data":2 }, "model": "minecraft:item/light_tungsten" },
+    { "predicate": { "custom_model_data":3 }, "model": "minecraft:item/light_white" },
+    { "predicate": { "custom_model_data":4 }, "model": "minecraft:item/light_monitor" },
+    { "predicate": { "custom_model_data":5 }, "model": "minecraft:item/light_red" },
+    { "predicate": { "custom_model_data":6 }, "model": "minecraft:item/light_orange" },
+    { "predicate": { "custom_model_data":7 }, "model": "minecraft:item/light_yellow" },
+    { "predicate": { "custom_model_data":8 }, "model": "minecraft:item/light_lime" },
+    { "predicate": { "custom_model_data":9 }, "model": "minecraft:item/light_green" },
+    { "predicate": { "custom_model_data":10 }, "model": "minecraft:item/light_mint" },
+    { "predicate": { "custom_model_data":11 }, "model": "minecraft:item/light_cyan" },
+    { "predicate": { "custom_model_data":12 }, "model": "minecraft:item/light_azure" },
+    { "predicate": { "custom_model_data":13 }, "model": "minecraft:item/light_blue" },
+    { "predicate": { "custom_model_data":14 }, "model": "minecraft:item/light_violet" },
+    { "predicate": { "custom_model_data":15 }, "model": "minecraft:item/light_magenta" },
+    { "predicate": { "custom_model_data":16 }, "model": "minecraft:item/light_pink" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+    "blend": {
+        "func": "add",
+        "srcrgb": "one",
+        "dstrgb": "zero"
+    },
+    "vertex": "aggregate",
+    "fragment": "aggregate_6",
+    "attributes": [ "Position" ],
+    "samplers": [
+        { "name": "DiffuseSampler" },
+        { "name": "ColoredCentersSampler" }
+    ],
+    "uniforms": [
+        { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+        { "name": "InSize",  "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+        { "name": "Step",    "type": "float",     "count": 1,  "values": [ 1.0 ] },
+        { "name": "Test",    "type": "float",     "count": 1,  "values": [ 1.0 ] }
+    ]
+}

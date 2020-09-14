@@ -1,0 +1,363 @@
+{
+    "targets": [
+        "translucent",
+        "itemEntity",
+        "particles",
+        "clouds",
+        "weather",
+        "swap1",
+        "swap2",
+        "swap3",
+        "temporal1",
+        "temporal2"
+    ],
+    "passes": [
+        {
+            "name": "filter",
+            "intarget": "itemEntity",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "itemEntity:depth"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Range",
+                    "values": [ 48.0 ]
+                }
+            ]
+        },
+        {
+            "name": "centers",
+            "intarget": "swap1",
+            "outtarget": "swap2",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "itemEntity:depth"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"ScreenTolerance",
+                    "values": [ 0.005 ]
+                },
+                {
+                    "name":"ScreenMaxR",
+                    "values": [ 0.2 ]
+                },
+                {
+                    "name":"PhysicalR",
+                    "values": [ 0.034 ]
+                },
+                {
+                    "name":"DepthTolerance",
+                    "values": [ 0.1 ]
+                },
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                }
+            ]
+        },
+        {
+            "name": "centers_med",
+            "intarget": "swap2",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "itemEntity:depth"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"ScreenTolerance",
+                    "values": [ 0.005 ]
+                },
+                {
+                    "name":"PhysicalR",
+                    "values": [ 0.034 ]
+                },
+                {
+                    "name":"DepthTolerance",
+                    "values": [ 0.1 ]
+                },
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                }
+            ]
+        },
+        {
+            "name": "centers_fine",
+            "intarget": "swap1",
+            "outtarget": "swap3"
+        },
+        {
+            "name": "aggregate_1",
+            "intarget": "swap3",
+            "outtarget": "swap1",
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "aggregate_2",
+            "intarget": "swap1",
+            "outtarget": "swap2",
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "aggregate_3",
+            "intarget": "swap2",
+            "outtarget": "swap1",
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "aggregate_4",
+            "intarget": "swap1",
+            "outtarget": "swap2",
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "aggregate_5",
+            "intarget": "swap2",
+            "outtarget": "swap1",
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "aggregate_6",
+            "intarget": "swap1",
+            "outtarget": "swap2",
+            "auxtargets": [
+                {
+                    "name": "ColoredCentersSampler",
+                    "id": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "name": "light",
+            "intarget": "temporal1",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "minecraft:main:depth"
+                },
+                {
+                    "name": "ItemEntityDepthSampler",
+                    "id": "itemEntity:depth"
+                },
+                {
+                    "name": "LightsCoordSampler",
+                    "id": "swap2"
+                },
+                {
+                    "name": "ColoredCentersSampler",
+                    "id": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 48.0 ]
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap1",
+            "outtarget": "temporal1"
+        },
+        {
+            "name": "light",
+            "intarget": "temporal2",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "translucent:depth"
+                },
+                {
+                    "name": "ItemEntityDepthSampler",
+                    "id": "itemEntity:depth"
+                },
+                {
+                    "name": "LightsCoordSampler",
+                    "id": "swap2"
+                },
+                {
+                    "name": "ColoredCentersSampler",
+                    "id": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 48.0 ]
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap1",
+            "outtarget": "temporal2"
+        },
+        
+        {
+            "name": "light_apply",
+            "intarget": "minecraft:main",
+            "outtarget": "swap1",
+            "auxtargets": [
+                {
+                    "name": "LightMapSampler",
+                    "id": "temporal1"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Intensity",
+                    "values": [ 2.0 ]
+                }
+            ]
+        },
+        {
+            "name": "light_apply_t",
+            "intarget": "translucent",
+            "outtarget": "swap2",
+            "auxtargets": [
+                {
+                    "name": "LightMapSampler",
+                    "id": "temporal2"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Intensity",
+                    "values": [ 2.0 ]
+                }
+            ]
+        },
+        {
+            "name": "transparency",
+            "intarget": "swap1",
+            "outtarget": "swap3",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "minecraft:main:depth"
+                },
+                {
+                    "name": "TranslucentSampler",
+                    "id": "swap2"
+                },
+                {
+                    "name": "TranslucentDepthSampler",
+                    "id": "translucent:depth"
+                },
+                {
+                    "name": "ItemEntitySampler",
+                    "id": "itemEntity"
+                },
+                {
+                    "name": "ItemEntityDepthSampler",
+                    "id": "itemEntity:depth"
+                },
+                {
+                    "name": "ParticlesSampler",
+                    "id": "particles"
+                },
+                {
+                    "name": "ParticlesDepthSampler",
+                    "id": "particles:depth"
+                },
+                {
+                    "name": "CloudsSampler",
+                    "id": "clouds"
+                },
+                {
+                    "name": "CloudsDepthSampler",
+                    "id": "clouds:depth"
+                },
+                {
+                    "name": "WeatherSampler",
+                    "id": "weather"
+                },
+                {
+                    "name": "WeatherDepthSampler",
+                    "id": "weather:depth"
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap3",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}

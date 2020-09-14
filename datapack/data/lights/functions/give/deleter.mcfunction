@@ -1,0 +1,1 @@
+give @p enderman_spawn_egg{EntityTag:{id:"minecraft:armor_stand",Invisible:1b,Invulnerable:1b,PersistenceRequired:1b,Small:1b,Marker:1b,Tags:[deleter]},display:{Name:'[{"text":"Light Delete","italic":false}]'}}

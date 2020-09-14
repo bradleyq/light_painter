@@ -1,0 +1,4 @@
+{
+    "parent": "minecraft:item/light",
+    "textures":{"0":"misc/yellow","particle":"misc/yellow"}
+}

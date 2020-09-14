@@ -1,0 +1,16 @@
+function lights:give/deleter
+function lights:give/light/red
+function lights:give/light/orange
+function lights:give/light/yellow
+function lights:give/light/lime
+function lights:give/light/green
+function lights:give/light/mint
+function lights:give/light/cyan
+function lights:give/light/azure
+function lights:give/light/blue
+function lights:give/light/violet
+function lights:give/light/magenta
+function lights:give/light/pink
+function lights:give/light/tungsten
+function lights:give/light/white
+function lights:give/light/monitor
