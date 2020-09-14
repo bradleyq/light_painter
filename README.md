@@ -2,9 +2,19 @@
 
 ### Overview
 screen space point lights using MC's exposed transparency shaders.
+<table>
+  <tr>
+    <th>
+      <img src="/images/0.png" alt="Image1" width="400"/>
+    </th>
+    <th>
+      <img src="/images/1.png" alt="Image2" width="400"/>
+    </th>
+    <th>
+      <img src="/images/2.png" alt="Image3" width="400"/>
+    </th>
+  </tr>
+</table>
 
-![Image1](/images/0.png | width=200)
-![Image2](/images/1.png | width=200)
-![Image3](/images/2.png | width=200)
 
 ### Usage
