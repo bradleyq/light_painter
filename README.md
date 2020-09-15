@@ -2,7 +2,7 @@
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
-Screen space point lights using MC's exposed transparency shaders. 
+Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting. FOV 70 out of the box, but can be modified.
 
 ### What it does:
 - dynamic placable lights of any hue (all hues will be max brightness)
