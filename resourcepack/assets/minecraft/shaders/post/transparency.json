@@ -231,13 +231,17 @@
             "outtarget": "temporal1"
         },
         {
-            "name": "light",
+            "name": "light_t",
             "intarget": "temporal2",
             "outtarget": "swap1",
             "auxtargets": [
                 {
                     "name": "DiffuseDepthSampler",
                     "id": "translucent:depth"
+                },
+                {
+                    "name": "CompareDepthSampler",
+                    "id": "minecraft:main:depth"
                 },
                 {
                     "name": "ItemEntityDepthSampler",

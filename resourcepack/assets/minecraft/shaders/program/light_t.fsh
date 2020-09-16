@@ -2,6 +2,7 @@
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D DiffuseDepthSampler;
+uniform sampler2D CompareDepthSampler;
 uniform sampler2D ItemEntityDepthSampler;
 uniform sampler2D LightsCoordSampler;
 uniform sampler2D ColoredCentersSampler;
@@ -36,10 +37,11 @@ float LinearizeDepth(float depth) {
 }
 
 void main() {
-    vec4 outColor = vec4(0.0);
-    float depth = LinearizeDepth(texture2D(DiffuseDepthSampler, texCoord).r);
-    if (depth < Range + 20.0) {
-        outColor = texture2D(DiffuseSampler, texCoord);
+    vec4 outColor = texture2D(DiffuseSampler, texCoord);
+    float oDepth = texture2D(DiffuseDepthSampler, texCoord).r;
+    float compDepth = texture2D(CompareDepthSampler, texCoord).r;
+    float depth = LinearizeDepth(oDepth);
+    if (oDepth < compDepth && depth < Range + 20.0) {
         vec4 aggColor = vec4(0.0, 0.0, 0.0, 1.0);
 
         vec2 pixCoord = texCoord;
