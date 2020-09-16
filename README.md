@@ -2,7 +2,7 @@
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
-Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting. FOV 70 out of the box, but can be modified. There are three versions of Light Painter: **Lite**, **Standard**, and **Extended**. Use **Lite** as a last resort!!!
+Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting. FOV 70 out of the box, but can be modified. There are three versions of Light Painter: **Lite**, **Standard**, and **Extended**. Use **Lite** as a last resort! See the respective branches for the different versions. "master" is the **Standard** branch.
 
 ### What it does:
 - dynamic placable lights of any hue (all hues will be max brightness)
