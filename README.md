@@ -10,34 +10,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
 - datapack includes custom spawners for placing and deleting lights
 - correctly blends with transparency
 - lighting translucent blocks (**Standard** and **Extended** only)
-- fade out at long ranges
-- ranges:
-  <table>
-    <tr>
-      <th width="75%">
-        Lite
-      </th>
-      <th width="25%">
-        40
-      </th>
-    </tr>
-    <tr>
-        <th width="75%">
-          Standard
-        </th>
-        <th width="25%">
-          48
-        </th>
-      </tr>
-    <tr>
-      <th width="75%">
-        Extended
-      </th>
-      <th width="25%">
-        128
-      </th>
-    </tr>
-  </table>
+- fade out at long ranges (range differs between versions)
 
 ### What it does not do:
 - render out of frame lights
