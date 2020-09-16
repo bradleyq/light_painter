@@ -36,7 +36,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
   </tr>
 </table>
 
-### Feature sets
+### Feature differences:
 <table>
   <tr>
     <th width="15%">
@@ -55,7 +55,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
       Long Range
     </th>
     <th>
-      FPS 50 Lights (GTX 1070)
+      FPS w/ 50 Lights (GTX 1070)
     </th>
   </tr>
   <tr>
