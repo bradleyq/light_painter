@@ -1,4 +1,4 @@
-# Light Painter
+# Light Painter (Extended)
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
@@ -9,6 +9,7 @@ Screen space point lights using MC's exposed transparency shaders.
 - low performance hit
 - datapack includes custom spawners for placing and deleting lights
 - correctly blends with transparency
+- range up to **128 blocks**
 
 ### What it does not do:
 - render out of frame lights
@@ -35,7 +36,7 @@ Screen space point lights using MC's exposed transparency shaders.
 </table>
 
 ## Design and Performance
-This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated strip on the screen. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. In most cases, the performance hit induced by armor stands will outweigh the performance hit of the lighting calculations.
+This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated strip on the screen. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 50 lights. Scaling, however, is not linear.
 
 ## Usage
 See License.md for license info. This utility is a resourcepack + datapack combo. Installation of the datapack is not strictly required, but it is useful for ease of use.
