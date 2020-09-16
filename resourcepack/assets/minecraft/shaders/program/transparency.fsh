@@ -17,14 +17,6 @@ varying vec2 texCoord;
 
 #define NUM_LAYERS 6
 
-#define NEAR 0.1 
-#define FAR 1000.0
-
-float LinearizeDepth(float depth) {
-    float z = depth * 2.0 - 1.0;
-    return (NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));    
-}
-
 vec4 color_layers[NUM_LAYERS];
 float depth_layers[NUM_LAYERS];
 int active_layers = 0;
@@ -62,14 +54,9 @@ void main() {
     active_layers = 1;
 
     vec4 stateColor = texture2D( ItemEntitySampler, texCoord );
-    float depth = texture2D( ItemEntityDepthSampler, texCoord ).r;
-    
-    if (stateColor.a == 1.0) {
-        depth = 100.0;
-    }
 
     try_insert( texture2D( TranslucentSampler, texCoord ), texture2D( TranslucentDepthSampler, texCoord ).r );
-    try_insert( stateColor, depth);
+    try_insert( stateColor, texture2D( ItemEntityDepthSampler, texCoord ).r + float(stateColor.a == 1.0) * 100.0);
     try_insert( texture2D( ParticlesSampler, texCoord ), texture2D( ParticlesDepthSampler, texCoord ).r );
     try_insert( texture2D( WeatherSampler, texCoord ), texture2D( WeatherDepthSampler, texCoord ).r );
     try_insert( texture2D( CloudsSampler, texCoord ), texture2D( CloudsDepthSampler, texCoord ).r );

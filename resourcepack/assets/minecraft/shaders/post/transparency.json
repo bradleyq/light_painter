@@ -8,8 +8,7 @@
         "swap1",
         "swap2",
         "swap3",
-        "temporal1",
-        "temporal2"
+        "temporal"
     ],
     "passes": [
         {
@@ -25,7 +24,7 @@
             "uniforms": [
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 40.0 ]
                 }
             ]
         },
@@ -104,10 +103,6 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
-                },
-                {
-                    "name":"Test",
-                    "values": [ 0.0 ]
                 }
             ]
         },
@@ -119,10 +114,6 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
-                },
-                {
-                    "name":"Test",
-                    "values": [ 0.0 ]
                 }
             ]
         },
@@ -134,10 +125,6 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
-                },
-                {
-                    "name":"Test",
-                    "values": [ 0.0 ]
                 }
             ]
         },
@@ -149,10 +136,6 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
-                },
-                {
-                    "name":"Test",
-                    "values": [ 0.0 ]
                 }
             ]
         },
@@ -164,10 +147,6 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
-                },
-                {
-                    "name":"Test",
-                    "values": [ 0.0 ]
                 }
             ]
         },
@@ -185,16 +164,12 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
-                },
-                {
-                    "name":"Test",
-                    "values": [ 0.0 ]
                 }
             ]
         },
         {
             "name": "light",
-            "intarget": "temporal1",
+            "intarget": "temporal",
             "outtarget": "swap1",
             "auxtargets": [
                 {
@@ -221,58 +196,15 @@
                 },
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 40.0 ]
                 }
             ]
         },
         {
             "name": "blit",
             "intarget": "swap1",
-            "outtarget": "temporal1"
-        },
-        {
-            "name": "light_t",
-            "intarget": "temporal2",
-            "outtarget": "swap1",
-            "auxtargets": [
-                {
-                    "name": "DiffuseDepthSampler",
-                    "id": "translucent:depth"
-                },
-                {
-                    "name": "CompareDepthSampler",
-                    "id": "minecraft:main:depth"
-                },
-                {
-                    "name": "ItemEntityDepthSampler",
-                    "id": "itemEntity:depth"
-                },
-                {
-                    "name": "LightsCoordSampler",
-                    "id": "swap2"
-                },
-                {
-                    "name": "ColoredCentersSampler",
-                    "id": "swap3"
-                }
-            ],
-            "uniforms": [
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
-                    "name":"Range",
-                    "values": [ 48.0 ]
-                }
-            ]
-        },
-        {
-            "name": "blit",
-            "intarget": "swap1",
-            "outtarget": "temporal2"
-        },
-        
+            "outtarget": "temporal"
+        },    
         {
             "name": "light_apply",
             "intarget": "minecraft:main",
@@ -280,24 +212,7 @@
             "auxtargets": [
                 {
                     "name": "LightMapSampler",
-                    "id": "temporal1"
-                }
-            ],
-            "uniforms": [
-                {
-                    "name":"Intensity",
-                    "values": [ 2.0 ]
-                }
-            ]
-        },
-        {
-            "name": "light_apply_t",
-            "intarget": "translucent",
-            "outtarget": "swap2",
-            "auxtargets": [
-                {
-                    "name": "LightMapSampler",
-                    "id": "temporal2"
+                    "id": "temporal"
                 }
             ],
             "uniforms": [
@@ -310,7 +225,7 @@
         {
             "name": "transparency",
             "intarget": "swap1",
-            "outtarget": "swap3",
+            "outtarget": "swap2",
             "auxtargets": [
                 {
                     "name": "DiffuseDepthSampler",
@@ -318,7 +233,7 @@
                 },
                 {
                     "name": "TranslucentSampler",
-                    "id": "swap2"
+                    "id": "translucent"
                 },
                 {
                     "name": "TranslucentDepthSampler",
@@ -360,7 +275,7 @@
         },
         {
             "name": "blit",
-            "intarget": "swap3",
+            "intarget": "swap2",
             "outtarget": "minecraft:main"
         }
     ]

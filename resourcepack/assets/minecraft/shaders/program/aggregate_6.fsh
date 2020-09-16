@@ -4,7 +4,6 @@ uniform sampler2D DiffuseSampler;
 uniform sampler2D ColoredCentersSampler;
 uniform vec2 InSize;
 uniform float Step;
-uniform float Test;
 
 varying vec2 texCoord;
 varying vec2 oneTexel;
@@ -26,7 +25,7 @@ vec3 encodeInt(int i) {
 }
 
 void main() {
-    vec4 outColor = texture2D(DiffuseSampler, texCoord);
+    vec4 outColor = vec4(0.0);
     float width = ceil(InSize.x / Step);
     float width2 = ceil(width / Step);
     float height = ceil(InSize.y / (Step));
@@ -35,7 +34,6 @@ void main() {
     float targetNum = pos.x + 1.0;
 
     if (pos.y <= 1.0) {
-        outColor = vec4(0.0);
         vec2 samplepos = vec2(2.0 * width + 2.0 * width2, 0.0);
         float tmpCounter = 0.0;
         float status = 0.0;
@@ -51,6 +49,8 @@ void main() {
                 tmpCounter += l0count;
             }
         }
+
+        outColor = vec4(encodeInt(int(tmpCounter)), 69.0 / 255.0);
 
         if (status == 1.0) {
             samplepos = vec2(2.0 * width + width2 + float(px), 0.0);
@@ -128,10 +128,6 @@ void main() {
                     tmpCounter += isLight;
                 }
             }
-        }
-
-        if (Test > 0.5 && outColor.a == 0.0) {
-            outColor += vec4(0.0, 0.2, 0.0, 1.0);
         }
     }
 

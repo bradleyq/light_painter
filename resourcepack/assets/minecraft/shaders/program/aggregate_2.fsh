@@ -3,7 +3,6 @@
 uniform sampler2D DiffuseSampler;
 uniform vec2 InSize;
 uniform float Step;
-uniform float Test;
 
 varying vec2 texCoord;
 varying vec2 oneTexel;
@@ -21,10 +20,6 @@ void main() {
         }
         tmpCounter /= 255.0;
         outColor = vec4(vec3(tmpCounter), 1.0);
-        if (Test > 0.5) {
-            outColor.rgb /= tmpCounter == 0.0 ? 1.0 : outColor.r;
-            outColor.rgb += vec3(0.4, 0.0, 0.0);
-        }
     }
 
     gl_FragColor = outColor;
