@@ -35,7 +35,6 @@ void main() {
     float targetNum = pos.x + 1.0;
 
     if (pos.y <= 1.0) {
-        outColor = vec4(0.0);
         vec2 samplepos = vec2(2.0 * width + 2.0 * width2, 0.0);
         float tmpCounter = 0.0;
         float status = 0.0;
@@ -51,6 +50,8 @@ void main() {
                 tmpCounter += l0count;
             }
         }
+
+        outColor = vec4(encodeInt(int(tmpCounter)), 69.0 / 255.0);
 
         if (status == 1.0) {
             samplepos = vec2(2.0 * width + width2 + float(px), 0.0);
