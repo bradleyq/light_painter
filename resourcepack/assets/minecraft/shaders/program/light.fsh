@@ -28,6 +28,15 @@ int decodeInt(vec3 ivec) {
     return num;
 }
 
+vec4 decodeAlphaHDR(vec4 color) {
+    return vec4(color.rgb * (1.0 + clamp(color.a - 26.0 / 255.0, 0.0, 1.0) * 3.0 * 255.0 / 224.0), 1.0);
+}
+
+vec4 encodeAlphaHDR(vec3 color) {
+    float me = clamp(max(max(color.r, color.g), color.b), 1.0, 4.0);
+    return vec4(color.rgb / me, 26.0 / 255.0 + (me - 1.0) * 224.0 / 255.0 / 3.0);
+}
+
 #define NEAR 0.1 
 #define FAR 1000.0
   
@@ -40,7 +49,7 @@ void main() {
     vec4 outColor = vec4(0.0);
     float depth = LinearizeDepth(texture2D(DiffuseDepthSampler, texCoord).r);
     if (depth < Range + LR) {
-        outColor = texture2D(DiffuseSampler, texCoord);
+        outColor = decodeAlphaHDR(texture2D(DiffuseSampler, texCoord));
         vec4 aggColor = vec4(0.0, 0.0, 0.0, 1.0);
 
         vec2 pixCoord = texCoord;
@@ -64,11 +73,11 @@ void main() {
 
             if (lightDist < LR) {
                 vec3 lightColor = texture2D(ColoredCentersSampler, lightPos).rgb;
-                lightColor /= max(max(lightColor.r, max(lightColor.g, lightColor.b)), 0.01);
-                aggColor.rgb += clamp((pow(1.0 / (lightDist + 3.0), 2.0) - 0.01) * 9.0, 0.0, 1.0) * lightColor * clamp(Range - lightDepth, 0.0, 6.0) / 6.0;
+                lightPos = 0.5 - abs(lightPos - 0.5);
+                aggColor.rgb += clamp((pow(1.0 / (lightDist + 3.0), 2.0) - 0.01) * 9.0, 0.0, 1.0) * lightColor * clamp(Range - lightDepth, 0.0, 6.0) * clamp(min(lightPos.x, lightPos.y), 0.0, 0.05) * 20.0 / 6.0;
             }
         }
-        outColor = vec4(mix(outColor.rgb, aggColor.rgb, 0.7), 1.0);
+        outColor = encodeAlphaHDR(mix(outColor.rgb, aggColor.rgb, 0.7));
     }
 
 
