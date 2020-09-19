@@ -226,7 +226,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "copy",
             "intarget": "swap1",
             "outtarget": "temporal1"
         },
@@ -268,11 +268,40 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "copy",
             "intarget": "swap1",
             "outtarget": "temporal2"
         },
-        
+        {
+            "name": "blur",
+            "intarget": "minecraft:main",
+            "outtarget": "swap1",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [ 0.7071, 0.7071 ]
+                },
+                {
+                    "name": "Radius",
+                    "values": [ 30.0 ]
+                }
+            ]
+        },
+        {
+            "name": "blur",
+            "intarget": "swap1",
+            "outtarget": "swap3",
+            "uniforms": [
+                {
+                    "name": "BlurDir",
+                    "values": [0.7071, -0.7071 ]
+                },
+                {
+                    "name": "Radius",
+                    "values": [ 30.0 ]
+                }
+            ]
+        },
         {
             "name": "light_apply",
             "intarget": "minecraft:main",
@@ -281,12 +310,16 @@
                 {
                     "name": "LightMapSampler",
                     "id": "temporal1"
+                },
+                {
+                    "name": "BlurSampler",
+                    "id": "swap3"
                 }
             ],
             "uniforms": [
                 {
                     "name":"Intensity",
-                    "values": [ 2.0 ]
+                    "values": [ 1.5 ]
                 }
             ]
         },
@@ -303,7 +336,7 @@
             "uniforms": [
                 {
                     "name":"Intensity",
-                    "values": [ 2.0 ]
+                    "values": [ 1.5 ]
                 }
             ]
         },
