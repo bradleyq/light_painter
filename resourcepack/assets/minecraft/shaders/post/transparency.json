@@ -9,7 +9,8 @@
         "swap2",
         "swap3",
         "temporal1",
-        "temporal2"
+        "temporal2",
+        { "name": "lights", "width": 1024, "height": 4, "bilinear": false }
     ],
     "passes": [
         {
@@ -174,8 +175,12 @@
         {
             "name": "aggregate_6",
             "intarget": "swap1",
-            "outtarget": "swap2",
+            "outtarget": "lights",
             "auxtargets": [
+                {
+                    "name": "ItemEntityDepthSampler",
+                    "id": "itemEntity:depth"
+                },
                 {
                     "name": "ColoredCentersSampler",
                     "id": "swap3"
@@ -185,6 +190,10 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
+                },
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
                 },
                 {
                     "name":"Test",
@@ -202,16 +211,8 @@
                     "id": "minecraft:main:depth"
                 },
                 {
-                    "name": "ItemEntityDepthSampler",
-                    "id": "itemEntity:depth"
-                },
-                {
-                    "name": "LightsCoordSampler",
-                    "id": "swap2"
-                },
-                {
-                    "name": "ColoredCentersSampler",
-                    "id": "swap3"
+                    "name": "LightsSampler",
+                    "id": "lights"
                 }
             ],
             "uniforms": [
