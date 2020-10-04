@@ -245,16 +245,8 @@
                     "id": "minecraft:main:depth"
                 },
                 {
-                    "name": "ItemEntityDepthSampler",
-                    "id": "itemEntity:depth"
-                },
-                {
-                    "name": "LightsCoordSampler",
-                    "id": "swap2"
-                },
-                {
-                    "name": "ColoredCentersSampler",
-                    "id": "swap3"
+                    "name": "LightsSampler",
+                    "id": "lights"
                 }
             ],
             "uniforms": [
