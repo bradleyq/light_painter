@@ -10,9 +10,7 @@
     "samplers": [
         { "name": "DiffuseSampler" },
         { "name": "DiffuseDepthSampler" },
-        { "name": "ItemEntityDepthSampler" },
-        { "name": "LightsCoordSampler" },
-        { "name": "ColoredCentersSampler" }
+        { "name": "LightsSampler" }
     ],
     "uniforms": [
         { "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },

@@ -1,4 +1,4 @@
-#version 110
+#version 120
 
 uniform sampler2D DiffuseSampler;
 uniform vec2 InSize;
@@ -6,7 +6,6 @@ uniform float Step;
 
 varying vec2 texCoord;
 varying vec2 oneTexel;
-varying float aspectRatio;
 
 void main() {
     vec4 outColor = texture2D(DiffuseSampler, texCoord);
@@ -16,7 +15,7 @@ void main() {
     if (samplepos.x >= 0.0 && samplepos.x < width && samplepos.y < InSize.y) {
         float tmpCounter = 0.0;
         for (int i = 0; i < int(Step); i += 1) {
-            tmpCounter += float(texture2D(DiffuseSampler, (vec2(samplepos.x, samplepos.y + float(i)) + 0.5) / InSize).b * 255.0);
+            tmpCounter += float(texture2D(DiffuseSampler, (vec2(samplepos.x, samplepos.y + float(i)) + 0.5) * oneTexel).b * 255.0);
         }
         tmpCounter /= 255.0;
         outColor = vec4(vec3(tmpCounter), 1.0);
