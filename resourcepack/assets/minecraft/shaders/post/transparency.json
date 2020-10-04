@@ -169,6 +169,10 @@
                 {
                     "name":"Step",
                     "values": [ 8.0 ]
+                },
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
                 }
             ]
         },
