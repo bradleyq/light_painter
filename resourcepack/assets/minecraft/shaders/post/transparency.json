@@ -241,12 +241,12 @@
                     "id": "translucent:depth"
                 },
                 {
-                    "name": "CompareDepthSampler",
-                    "id": "minecraft:main:depth"
-                },
-                {
                     "name": "LightsSampler",
                     "id": "lights"
+                },
+                {
+                    "name": "CompareDepthSampler",
+                    "id": "minecraft:main:depth"
                 }
             ],
             "uniforms": [
