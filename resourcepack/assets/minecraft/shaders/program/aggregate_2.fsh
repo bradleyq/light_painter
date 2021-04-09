@@ -1,15 +1,17 @@
-#version 120
+#version 150
 
 uniform sampler2D DiffuseSampler;
 uniform vec2 InSize;
 uniform float Step;
 uniform float Test;
 
-varying vec2 texCoord;
-varying vec2 oneTexel;
+in vec2 texCoord;
+flat in vec2 oneTexel;
+
+out vec4 outColor;
 
 void main() {
-    vec4 outColor = texture2D(DiffuseSampler, texCoord);
+    outColor = texture2D(DiffuseSampler, texCoord);
     float width = ceil(InSize.x / Step);
     vec2 samplepos = gl_FragCoord.xy - 0.5;
     samplepos = vec2(samplepos.x - width, samplepos.y * Step);
@@ -25,6 +27,4 @@ void main() {
             outColor.rgb += vec3(0.4, 0.0, 0.0);
         }
     }
-
-    gl_FragColor = outColor;
 }

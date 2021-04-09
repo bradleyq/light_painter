@@ -1,4 +1,4 @@
-#version 120
+#version 150
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D DiffuseDepthSampler;
@@ -13,32 +13,32 @@ uniform sampler2D WeatherDepthSampler;
 uniform sampler2D CloudsSampler;
 uniform sampler2D CloudsDepthSampler;
 
-varying vec2 texCoord;
+in vec2 texCoord;
 
 #define NUM_LAYERS 6
 
 vec4 color_layers[NUM_LAYERS];
 float depth_layers[NUM_LAYERS];
+int index_layers[NUM_LAYERS] = int[NUM_LAYERS](0, 1 ,2, 3, 4, 5);
 int active_layers = 0;
 
-void try_insert( vec4 color, float depth ) {
+out vec4 fragColor;
+
+void try_insert( vec4 color, sampler2D dSampler ) {
     if ( color.a == 0.0 ) {
         return;
     }
 
+    float depth = texture( dSampler, texCoord ).r;
     color_layers[active_layers] = color;
     depth_layers[active_layers] = depth;
 
     int jj = active_layers++;
     int ii = jj - 1;
-    while ( jj > 0 && depth_layers[jj] > depth_layers[ii] ) {
-        float depthTemp = depth_layers[ii];
-        depth_layers[ii] = depth_layers[jj];
-        depth_layers[jj] = depthTemp;
-
-        vec4 colorTemp = color_layers[ii];
-        color_layers[ii] = color_layers[jj];
-        color_layers[jj] = colorTemp;
+    while ( jj > 0 && depth > depth_layers[index_layers[ii]] ) {
+        int indexTemp = index_layers[ii];
+        index_layers[ii] = index_layers[jj];
+        index_layers[jj] = indexTemp;
 
         jj = ii--;
     }
@@ -49,22 +49,22 @@ vec3 blend( vec3 dst, vec4 src ) {
 }
 
 void main() {
-    color_layers[0] = vec4( texture2D( DiffuseSampler, texCoord ).rgb, 1.0 );
-    depth_layers[0] = texture2D( DiffuseDepthSampler, texCoord ).r;
+    color_layers[0] = vec4( texture( DiffuseSampler, texCoord ).rgb, 1.0 );
+    depth_layers[0] = texture( DiffuseDepthSampler, texCoord ).r;
     active_layers = 1;
 
-    vec4 stateColor = texture2D( ItemEntitySampler, texCoord );
+    try_insert( texture( CloudsSampler, texCoord ), CloudsDepthSampler);
+    try_insert( texture( TranslucentSampler, texCoord ), TranslucentDepthSampler);
+    try_insert( texture( ParticlesSampler, texCoord ), ParticlesDepthSampler);
+    try_insert( texture( WeatherSampler, texCoord ), WeatherDepthSampler);
 
-    try_insert( texture2D( TranslucentSampler, texCoord ), texture2D( TranslucentDepthSampler, texCoord ).r );
-    try_insert( stateColor, texture2D( ItemEntityDepthSampler, texCoord ).r + 100.0 * float(stateColor.a == 1.0));
-    try_insert( texture2D( ParticlesSampler, texCoord ), texture2D( ParticlesDepthSampler, texCoord ).r );
-    try_insert( texture2D( WeatherSampler, texCoord ), texture2D( WeatherDepthSampler, texCoord ).r );
-    try_insert( texture2D( CloudsSampler, texCoord ), texture2D( CloudsDepthSampler, texCoord ).r );
-
-    vec3 texelAccum = color_layers[0].rgb;
+    vec4 stateColor = texture( ItemEntitySampler, texCoord );
+    if (!(stateColor.a == 1.0 && stateColor.r < 1.0 &&  stateColor.g < 1.0 &&  stateColor.b < 1.0)) try_insert( stateColor, ItemEntityDepthSampler);
+    
+    vec3 texelAccum = color_layers[index_layers[0]].rgb;
     for ( int ii = 1; ii < active_layers; ++ii ) {
-        texelAccum = blend( texelAccum, color_layers[ii] );
+        texelAccum = blend( texelAccum, color_layers[index_layers[ii]] );
     }
 
-    gl_FragColor = vec4( texelAccum.rgb, 1.0 );
+    fragColor = vec4( texelAccum.rgb, 1.0 );
 }

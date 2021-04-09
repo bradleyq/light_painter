@@ -8,6 +8,7 @@
         "swap1",
         "swap2",
         "swap3",
+        "passthrough",
         "temporal1",
         "temporal2",
         { "name": "lights", "width": 1024, "height": 4, "bilinear": false }
@@ -26,74 +27,12 @@
             "uniforms": [
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 128.0 ]
                 }
             ]
         },
         {
             "name": "centers",
-            "intarget": "swap1",
-            "outtarget": "swap2",
-            "auxtargets": [
-                {
-                    "name": "DiffuseDepthSampler",
-                    "id": "itemEntity:depth"
-                }
-            ],
-            "uniforms": [
-                {
-                    "name":"ScreenTolerance",
-                    "values": [ 0.005 ]
-                },
-                {
-                    "name":"ScreenMaxR",
-                    "values": [ 0.2 ]
-                },
-                {
-                    "name":"PhysicalR",
-                    "values": [ 0.034 ]
-                },
-                {
-                    "name":"DepthTolerance",
-                    "values": [ 0.1 ]
-                },
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                }
-            ]
-        },
-        {
-            "name": "centers_med",
-            "intarget": "swap2",
-            "outtarget": "swap1",
-            "auxtargets": [
-                {
-                    "name": "DiffuseDepthSampler",
-                    "id": "itemEntity:depth"
-                }
-            ],
-            "uniforms": [
-                {
-                    "name":"ScreenTolerance",
-                    "values": [ 0.005 ]
-                },
-                {
-                    "name":"PhysicalR",
-                    "values": [ 0.034 ]
-                },
-                {
-                    "name":"DepthTolerance",
-                    "values": [ 0.1 ]
-                },
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                }
-            ]
-        },
-        {
-            "name": "centers_fine",
             "intarget": "swap1",
             "outtarget": "swap3"
         },
@@ -222,7 +161,7 @@
                 },
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 128.0 ]
                 }
             ]
         },
@@ -241,12 +180,12 @@
                     "id": "translucent:depth"
                 },
                 {
-                    "name": "CompareDepthSampler",
-                    "id": "minecraft:main:depth"
-                },
-                {
                     "name": "LightsSampler",
                     "id": "lights"
+                },
+                {
+                    "name": "CompareDepthSampler",
+                    "id": "minecraft:main:depth"
                 }
             ],
             "uniforms": [
@@ -256,7 +195,7 @@
                 },
                 {
                     "name":"Range",
-                    "values": [ 48.0 ]
+                    "values": [ 128.0 ]
                 }
             ]
         },
