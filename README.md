@@ -160,6 +160,8 @@ To access lights to move or modify them (datapack):
 - Transform custom model to billboard. Find approximate center pixel of marker and discard rest.
 #### filter
 - Filter `itemEntity` target for light markers.
+#### blur_custom
+- Blur using pseudo random samples for better perf at same blur level.
 #### centers
 - Find centers of each light marker by discarding adjacent pixels.
 #### aggregate_1, aggregate_2, aggregate_3, aggregate_4, aggregate_5
