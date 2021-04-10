@@ -10,16 +10,17 @@ flat in vec2 oneTexel;
 flat in vec2 oneTexelAux1;
 flat in float aspectRatio;
 flat in float conversionK;
+flat in float count;
 
 out vec4 outColor;
 
 #define BIG 100000
-#define LR 20.0
+#define LR 8.0
 #define FIXEDPOINT 1000.0
 #define NEAR 0.05
 #define FAR 1024.0
 #define SPREAD 1.2
-#define BOOST 2.0
+#define BOOST 2.5
 #define CUTOFF 0.02
 
 float luminance(vec3 rgb) {
@@ -60,14 +61,8 @@ void main() {
         vec2 screenCoord = (pixCoord - vec2(0.5)) * vec2(aspectRatio, 1.0);
         float conversion = conversionK * depth;
         vec3 worldCoord = vec3(screenCoord * conversion, depth);
-        vec4 tmpCount = texture(LightsSampler, vec2(1.0, 0.0) - oneTexelAux1 * 0.5);
-        int count = 0;
-        if (tmpCount.a == 69.0 / 255.0) {
-            tmpCount.a = 1.0;
-            count = decodeInt(tmpCount);
-        }
 
-        for (int i = 0; i < count; i += 1) {
+        for (int i = 0; i < int(count); i += 1) {
             vec4 xvec = texture(LightsSampler, (vec2(float(i), 0.0) + 0.5) * oneTexelAux1);
             vec4 yvec = texture(LightsSampler, (vec2(float(i), 1.0) + 0.5) * oneTexelAux1);
             vec4 zvec = texture(LightsSampler, (vec2(float(i), 2.0) + 0.5) * oneTexelAux1);

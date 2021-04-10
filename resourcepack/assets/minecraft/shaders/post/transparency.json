@@ -205,32 +205,58 @@
             "outtarget": "temporal2"
         },
         {
-            "name": "blur",
+            "name": "blur_custom",
             "intarget": "minecraft:main",
             "outtarget": "swap1",
             "uniforms": [
                 {
-                    "name": "BlurDir",
-                    "values": [ 0.7071, 0.7071 ]
-                },
-                {
                     "name": "Radius",
-                    "values": [ 30.0 ]
+                    "values": [ 0.01 ]
                 }
             ]
         },
         {
-            "name": "blur",
+            "name": "blur_custom",
             "intarget": "swap1",
             "outtarget": "swap3",
             "uniforms": [
                 {
-                    "name": "BlurDir",
-                    "values": [0.7071, -0.7071 ]
+                    "name": "Radius",
+                    "values": [ 0.015 ]
                 },
                 {
+                    "name": "Offset",
+                    "values": [ 7.0 ]
+                }
+            ]
+        },
+        {
+            "name": "blur_custom",
+            "intarget": "swap3",
+            "outtarget": "swap1",
+            "uniforms": [
+                {
                     "name": "Radius",
-                    "values": [ 30.0 ]
+                    "values": [ 0.02 ]
+                },
+                {
+                    "name": "Offset",
+                    "values": [ 21.0 ]
+                }
+            ]
+        },
+        {
+            "name": "blur_custom",
+            "intarget": "swap1",
+            "outtarget": "swap3",
+            "uniforms": [
+                {
+                    "name": "Radius",
+                    "values": [ 0.02 ]
+                },
+                {
+                    "name": "Offset",
+                    "values": [ 45.0 ]
                 }
             ]
         },
