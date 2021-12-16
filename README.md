@@ -61,6 +61,26 @@ This is a dev build so things might and will be broken. Screen space point light
   </tr>
   <tr>
     <td width="16%">
+      Experimental
+    </td>
+    <td width="16%">
+      128
+    </td>
+    <td width="16%">
+      Yes
+    </td>
+    <td width="16%">
+      Yes
+    </td>
+    <td width="16%">
+      Yes
+    </td>
+    <td>
+      N/A
+    </td>
+  </tr>
+  <tr>
+    <td width="16%">
       Lite
     </td>
     <td width="16%">
