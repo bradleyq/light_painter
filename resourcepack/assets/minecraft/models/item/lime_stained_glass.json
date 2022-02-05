@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/lime_stained_glass",
+  "parent": "block/lime_stained_glass_2",
   "overrides": [
     { "predicate": { "custom_model_data":1 }, "model": "minecraft:item/light" },
     { "predicate": { "custom_model_data":2 }, "model": "minecraft:item/light_tungsten" },
