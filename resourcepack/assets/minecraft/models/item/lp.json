@@ -1,0 +1,38 @@
+{
+	"credit": "thebradqq's guns",
+	"ambientocclusion": false,
+	"textures":
+	{
+		"0":"misc/black",
+		"particle":"misc/black"
+	},
+	"elements":
+		[
+			{
+				"from": [4,8,4],
+				"to": [12,8,12],
+				"rotation":
+					{
+						"angle": 0,
+						"axis": "y",
+						"origin": [10,10,10]
+					},
+					"faces":
+					{
+						"down":
+						{
+							"uv": [0,0,16,16],
+							"rotation": 90,
+							"texture": "#0"
+						}
+					}
+			}
+		],
+	"display":
+	{
+		"head":
+		{
+			"scale":[2,2,2]
+		}
+	}
+}
