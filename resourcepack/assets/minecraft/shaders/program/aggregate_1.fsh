@@ -17,7 +17,7 @@ void main() {
     if (samplepos.x < InSize.x) {
         float tmpCounter = 0.0;
         for (int i = 0; i < int(Step); i += 1) {
-            tmpCounter += float(texture2D(DiffuseSampler, (vec2(samplepos.x + float(i), samplepos.y) + 0.5) * oneTexel).a == 1.0);
+            tmpCounter += float(texture(DiffuseSampler, (vec2(samplepos.x + float(i), samplepos.y) + 0.5) * oneTexel).a == 1.0);
         }
         tmpCounter /= 255.0;
         outColor = vec4(vec3(tmpCounter), 1.0);
