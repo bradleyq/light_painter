@@ -3,7 +3,7 @@
 
 ## Overview
 **NOT COMPATIBLE WITH PREVIOUS VERSION!!! DO NOT LOAD OLD LIGHTS WITH THE NEW LIGHT PAINTER!!!**
-This is a dev build so things might and will be broken. Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting.
+Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting.
 
 ### What it does:
 - dynamic placable lights of any hue and any brightness
