@@ -1,4 +1,4 @@
-# Light Painter
+# Light Painter [1.16]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
