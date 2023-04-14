@@ -14,9 +14,9 @@ vec3 decodeAlphaHDR(vec4 color) {
 }
 
 void main() {
-    outColor = texture2D(DiffuseSampler, texCoord);
-    vec3 lightColor = decodeAlphaHDR(texture2D(LightMapSampler, texCoord));
-    vec4 blurColor = texture2D(BlurSampler, texCoord);
+    outColor = texture(DiffuseSampler, texCoord);
+    vec3 lightColor = decodeAlphaHDR(texture(LightMapSampler, texCoord));
+    vec4 blurColor = texture(BlurSampler, texCoord);
     outColor.rgb *= (Intensity / clamp(length(blurColor.rgb), 0.04, 1.0) * lightColor * 0.9) * (1.0 - clamp(length(blurColor.rgb) / 1.6, 0.0, 1.0))  + vec3(1.0);
     outColor.rgb += Intensity * lightColor * 0.1;
     outColor.a = 1.0;
