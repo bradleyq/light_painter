@@ -1,9 +1,9 @@
-# Light Painter [1.18]
+# Light Painter [1.19.4]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
 **NOT COMPATIBLE WITH PREVIOUS VERSION!!! DO NOT LOAD OLD LIGHTS WITH THE NEW LIGHT PAINTER!!!**
-This is a dev build so things might and will be broken. Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting.
+Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting.
 
 ### What it does:
 - dynamic placable lights of any hue and any brightness
@@ -55,13 +55,10 @@ This is a dev build so things might and will be broken. Screen space point light
     <th width="15%">
       Long Range
     </th>
-    <th>
-      FPS w/ 50 Lights (GTX 1070)
-    </th>
   </tr>
   <tr>
     <td width="16%">
-      Experimental
+      Universal
     </td>
     <td width="16%">
       128
@@ -74,9 +71,6 @@ This is a dev build so things might and will be broken. Screen space point light
     </td>
     <td width="16%">
       Yes
-    </td>
-    <td>
-      N/A
     </td>
   </tr>
   <tr>
@@ -95,9 +89,6 @@ This is a dev build so things might and will be broken. Screen space point light
     <td width="16%">
       No
     </td>
-    <td>
-      N/A
-    </td>
   </tr>
   <tr>
     <td width="16%">
@@ -114,9 +105,6 @@ This is a dev build so things might and will be broken. Screen space point light
     </td>
     <td width="16%">
       No
-    </td>
-    <td>
-      N/A
     </td>
   </tr>
   <tr>
@@ -135,9 +123,6 @@ This is a dev build so things might and will be broken. Screen space point light
     <td width="16%">
       Yes
     </td>
-    <td>
-      N/A
-    </td>
   </tr>
   <tr>
     <td width="16%">
@@ -153,9 +138,6 @@ This is a dev build so things might and will be broken. Screen space point light
       N/A
     </td>
     <td width="16%">
-      N/A
-    </td>
-    <td>
       N/A
     </td>
   </tr>
