@@ -1,4 +1,4 @@
-# Light Painter [1.17 snapshot dev]
+# Light Painter [1.17]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
