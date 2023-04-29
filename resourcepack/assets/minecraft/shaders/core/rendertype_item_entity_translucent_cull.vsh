@@ -21,6 +21,8 @@ uniform int FogShape;
 uniform vec3 Light0_Direction;
 uniform vec3 Light1_Direction;
 
+uniform vec4 ColorModulator;
+
 out float vertexDistance;
 out vec4 vertexColor;
 out vec2 texCoord0;
@@ -39,7 +41,7 @@ void main() {
     texCoord0 = UV0;
     texCoord1 = UV1;
     normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
-    marker = float(texture(Sampler0, UV0).a == 1.0);
+    marker = float(texture(Sampler0, UV0).a == 1.0 && ColorModulator.a == 1.0 && Color.a == 1.0);
 
     vec4 tmp = vec4(Position, 1.0);
 
