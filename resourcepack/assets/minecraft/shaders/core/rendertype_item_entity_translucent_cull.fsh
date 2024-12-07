@@ -26,7 +26,6 @@ void main() {
     if (color.a < 0.1) {
         discard;
     }
-
     
     if (marker < 0.5) {
         color *= vertexColor * ColorModulator;
