@@ -45,8 +45,6 @@ void main() {
 
     vec4 tmp = vec4(Position, 1.0);
 
-    mat3 RotMat = inverse(IViewRotMat);
-
     if (marker > 0.0) {
         if (gl_VertexID % 4 == 0) {
             tmp.xy += vec2(-HALFMARKER, HALFMARKER);
@@ -82,5 +80,4 @@ void main() {
 
     glpos = tmp;
     gl_Position = tmp;
-
 }
