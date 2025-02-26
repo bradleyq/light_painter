@@ -15,7 +15,6 @@ uniform sampler2D Sampler2;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
-uniform mat3 IViewRotMat;
 uniform int FogShape;
 
 uniform vec3 Light0_Direction;
@@ -36,16 +35,14 @@ out float scale;
 #define HALFMARKER 7.0 / 32.0
 
 void main() {
-    vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Position, FogShape);
+    vertexDistance = fog_distance(Position, FogShape);
     vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color) * texelFetch(Sampler2, UV2 / 16, 0);
     texCoord0 = UV0;
     texCoord1 = UV1;
     normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
     marker = float(texture(Sampler0, UV0).a == 1.0 && ColorModulator.a == 1.0 && Color.a == 1.0);
 
-    vec4 tmp = vec4(Position, 1.0);
-
-    mat3 RotMat = inverse(IViewRotMat);
+    vec4 tmp = ModelViewMat * vec4(Position, 1.0);
 
     if (marker > 0.0) {
         if (gl_VertexID % 4 == 0) {
@@ -65,8 +62,6 @@ void main() {
             texCoord3 = vec2(1.0, 0.0);
         }
     }
-
-    tmp = ModelViewMat * tmp;
 
     scale = abs(HALFMARKER * ProjMat[1][1] / tmp.z);
 
