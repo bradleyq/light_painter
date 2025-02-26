@@ -1,8 +1,7 @@
-# Light Painter [1.19.4]
+# Light Painter [1.20]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
-**NOT COMPATIBLE WITH PREVIOUS VERSION!!! DO NOT LOAD OLD LIGHTS WITH THE NEW LIGHT PAINTER!!!**
 Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting.
 
 ### What it does:
