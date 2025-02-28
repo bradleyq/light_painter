@@ -1,10 +1,10 @@
 # Light Painter [1.21.4]
 <img src="/src/image.png" alt="Image"/>
 
-## Warning:
+## Warning
 "Fabulous" graphics must be enabled.
 
-## About:
+## About
 This project is a fork of bradleyq's Light Painter that updates it to **Minecraft 1.21.4** and makes use of the expanded `custom_model_data` component to customise light tints. [Read more](https://github.com/bradleyq/light_painter).
 
 ## Usage
