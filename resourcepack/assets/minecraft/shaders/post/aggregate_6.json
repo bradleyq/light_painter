@@ -1,0 +1,16 @@
+{
+    "vertex": "minecraft:post/aggregate_6",
+    "fragment": "minecraft:post/aggregate_6",
+    "samplers": [
+        { "name": "InSampler" },
+        { "name": "ItemEntityDepthSampler" },
+        { "name": "ColoredCentersSampler" }
+    ],
+    "uniforms": [
+        { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+        { "name": "InSize",  "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+        { "name": "OutSize", "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+        { "name": "Step",    "type": "float",     "count": 1,  "values": [ 1.0 ] },
+        { "name": "FOV",     "type": "float",     "count": 1,  "values": [ 1.0 ] }
+    ]
+}

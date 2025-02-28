@@ -1,8 +1,9 @@
 #version 150
 
-#moj_import <fog.glsl>
+#moj_import <minecraft:fog.glsl>
 
 uniform sampler2D Sampler0;
+uniform sampler2D Sampler2;
 
 uniform vec4 ColorModulator;
 uniform float FogStart;
@@ -28,7 +29,7 @@ void main() {
     }
 
     
-    if (marker < 0.5) {
+    if (marker == 0.0) {
         color *= vertexColor * ColorModulator;
         fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
     } else {
@@ -36,7 +37,7 @@ void main() {
         if (!(abs(texCoord3.x - 0.5) <= onePixelToUV && abs(texCoord3.y - 0.5) <= onePixelToUV)) {
             discard;
         }
-        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
+        fragColor = linear_fog(vec4(vertexColor.rgb,color.a), vertexDistance, FogStart, FogEnd, FogColor);
         fragColor.rgb *= 254.0 / 255.0;
     }
 }

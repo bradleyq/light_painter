@@ -1,7 +1,7 @@
 #version 150
 
-#moj_import <light.glsl>
-#moj_import <fog.glsl>
+#moj_import <minecraft:light.glsl>
+#moj_import <minecraft:fog.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -40,11 +40,11 @@ void main() {
     texCoord0 = UV0;
     texCoord1 = UV1;
     normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
-    marker = float(texture(Sampler0, UV0).a == 1.0 && ColorModulator.a == 1.0 && Color.a == 1.0);
+    marker = float(texture(Sampler0, UV0).a * 255 == 254.);
 
     vec4 tmp = ModelViewMat * vec4(Position, 1.0);
 
-    if (marker > 0.0) {
+    if (marker == 1.0) {
         if (gl_VertexID % 4 == 0) {
             tmp.xy += vec2(-HALFMARKER, HALFMARKER);
             texCoord3 = vec2(0.0, 0.0);
@@ -67,7 +67,7 @@ void main() {
 
     tmp = ProjMat * tmp;
 
-    if (marker > 0.0) {
+    if (marker == 1.0) {
         vec4 distProbe = inverse(ProjMat) * vec4(0.0, 0.0, 1.0, 1.0);
         float far = round(length(distProbe.xyz / distProbe.w) / 64.0) * 64.0;
         float near = 0.05;

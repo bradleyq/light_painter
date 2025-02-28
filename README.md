@@ -1,4 +1,4 @@
-# Light Painter [1.21]
+# Light Painter [1.21.4]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
@@ -170,12 +170,12 @@ To access lights to move or modify them (datapack):
 - Compute layers in search tree.
 #### aggregate_6
 - Traverses search tree to store light screen coordinates into bottom two pixel rows.
-#### light, light_t
+#### mix, mix_t
 - Computes lighting color at each screen pixel. This pass is run on diffuse and transparency targets respectively.
-#### light_apply, light_apply_t
+#### apply, apply_t
 - Apply lighting to designated target.
 #### transparency
-- Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
+- Custom `transparency` pass that hides light markers and uses blend results of `apply` and `apply_t` for composite.
 
 
 ## Credits

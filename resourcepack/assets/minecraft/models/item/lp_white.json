@@ -1,4 +1,0 @@
-{
-    "parent": "minecraft:item/lp",
-    "textures":{"0":"misc/white","particle":"misc/white"}
-}
