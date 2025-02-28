@@ -1,0 +1,425 @@
+{
+    "targets": {
+        "swap1": {},
+        "swap2": {},
+        "swap3": {},
+        "temporal1": {},
+        "temporal2": {},
+        "lights": { "width": 1024, "height": 4, "bilinear": false }
+    },
+    "passes": [
+        {
+            "program": "minecraft:post/filter",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:item_entity"
+                },
+                {
+                    "sampler_name": "InDepth",
+                    "target": "minecraft:item_entity",
+                    "use_depth_buffer": true
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Range",
+                    "values": [ 128.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/centers",
+            "output": "swap3",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/aggregate_1",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/aggregate_2",
+            "output": "swap2",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/aggregate_3",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap2"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/aggregate_4",
+            "output": "swap2",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/aggregate_5",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap2"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/aggregate_6",
+            "output": "lights",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                },
+                {
+                    "sampler_name": "ItemEntityDepth",
+                    "target": "item_entity",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "ColoredCenters",
+                    "target": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Step",
+                    "values": [ 8.0 ]
+                },
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/copy",
+            "output": "temporal1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/apply",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "temporal1"
+                },
+                {
+                    "sampler_name": "InDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Lights",
+                    "target": "lights"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 128.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/copy",
+            "output": "temporal2",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/apply_t",
+            "output": "temporal1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "temporal2"
+                },
+                {
+                    "sampler_name": "InDepth",
+                    "target": "minecraft:translucent",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Lights",
+                    "target": "lights"
+                },
+                {
+                    "sampler_name": "CompareDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 128.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/blur_custom",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name": "Radius",
+                    "values": [ 0.01 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/blur_custom",
+            "output": "swap3",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name": "Radius",
+                    "values": [ 0.015 ]
+                },
+                {
+                    "name": "Offset",
+                    "values": [ 7.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/blur_custom",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name": "Radius",
+                    "values": [ 0.02 ]
+                },
+                {
+                    "name": "Offset",
+                    "values": [ 21.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/blur_custom",
+            "output": "swap3",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap1"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name": "Radius",
+                    "values": [ 0.02 ]
+                },
+                {
+                    "name": "Offset",
+                    "values": [ 45.0 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/mix",
+            "output": "swap1",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main"
+                },
+                {
+                    "sampler_name": "LightMap",
+                    "target": "temporal2"
+                },
+                {
+                    "sampler_name": "Blur",
+                    "target": "swap3"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Intensity",
+                    "values": [ 1.5 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/mix_t",
+            "output": "swap2",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:translucent"
+                },
+                {
+                    "sampler_name": "LightMap",
+                    "target": "temporal1"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name":"Intensity",
+                    "values": [ 1.5 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/transparency",
+            "output": "swap3",
+            "inputs": [
+                {
+                    "sampler_name": "Main",
+                    "target": "swap1"
+                },
+                {
+                    "sampler_name": "MainDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Translucent",
+                    "target": "swap2"
+                },
+                {
+                    "sampler_name": "TranslucentDepth",
+                    "target": "minecraft:translucent",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "ItemEntity",
+                    "target": "minecraft:item_entity"
+                },
+                {
+                    "sampler_name": "ItemEntityDepth",
+                    "target": "minecraft:item_entity",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Particles",
+                    "target": "minecraft:particles"
+                },
+                {
+                    "sampler_name": "ParticlesDepth",
+                    "target": "minecraft:particles",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Clouds",
+                    "target": "minecraft:clouds"
+                },
+                {
+                    "sampler_name": "CloudsDepth",
+                    "target": "minecraft:clouds",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Weather",
+                    "target": "minecraft:weather"
+                },
+                {
+                    "sampler_name": "WeatherDepth",
+                    "target": "minecraft:weather",
+                    "use_depth_buffer": true
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/blit",
+            "output": "minecraft:main",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap3"
+                }
+            ]
+        }
+    ]
+}
