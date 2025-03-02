@@ -78,7 +78,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
   </tr>
   <tr>
     <td width="16%">
-      Lite
+      Lite (deprecated)
     </td>
     <td width="16%">
       40
@@ -95,7 +95,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
   </tr>
   <tr>
     <td width="16%">
-      Standard
+      Standard (deprecated)
     </td>
     <td width="16%">
       48
@@ -112,7 +112,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
   </tr>
   <tr>
     <td width="16%">
-      Extended
+      Extended (deprecated)
     </td>
     <td width="16%">
       128
