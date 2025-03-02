@@ -26,12 +26,20 @@ int active_layers = 0;
 
 out vec4 fragColor;
 
-void try_insert( vec4 color, sampler2D dSampler ) {
+void try_insert( vec4 color, sampler2D dSampler, int ie ) {
     if ( color.a == 0.0 ) {
         return;
     }
 
     float depth = texture( dSampler, texCoord ).r;
+    if (ie > 0) {
+        if (depth >= LIGHTDEPTH) {
+            depth = (depth - LIGHTDEPTH) / (1.0 - LIGHTDEPTH);
+        }
+        else {
+            return;
+        }
+    }
     color_layers[active_layers] = color;
     depth_layers[active_layers] = depth;
 
@@ -55,13 +63,11 @@ void main() {
     depth_layers[0] = texture( DiffuseDepthSampler, texCoord ).r;
     active_layers = 1;
 
-    try_insert( texture( CloudsSampler, texCoord ), CloudsDepthSampler);
-    try_insert( texture( TranslucentSampler, texCoord ), TranslucentDepthSampler);
-    try_insert( texture( ParticlesSampler, texCoord ), ParticlesDepthSampler);
-    try_insert( texture( WeatherSampler, texCoord ), WeatherDepthSampler);
-
-    vec4 stateColor = texture( ItemEntitySampler, texCoord );
-    if (!(stateColor.a == LIGHTALPHA)) try_insert( stateColor, ItemEntityDepthSampler);
+    try_insert( texture( CloudsSampler, texCoord ), CloudsDepthSampler, 0);
+    try_insert( texture( TranslucentSampler, texCoord ), TranslucentDepthSampler, 0);
+    try_insert( texture( ParticlesSampler, texCoord ), ParticlesDepthSampler, 0);
+    try_insert( texture( WeatherSampler, texCoord ), WeatherDepthSampler, 0);
+    try_insert( texture( ItemEntitySampler, texCoord ), ItemEntityDepthSampler, 1);
     
     vec3 texelAccum = color_layers[index_layers[0]].rgb;
     for ( int ii = 1; ii < active_layers; ++ii ) {

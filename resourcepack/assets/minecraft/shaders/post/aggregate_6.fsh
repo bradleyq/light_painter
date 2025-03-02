@@ -34,11 +34,6 @@ vec4 encodeInt(int i) {
     return vec4(float(r) / 255.0, float(g) / 255.0, float(b) / 255.0, a);
 }
 
-float LinearizeDepth(float depth) {
-    float z = depth * 2.0 - 1.0;
-    return 2.0 * (NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR)) * DSCALE;    
-}
-
 void main() {
     outColor = texture(DiffuseSampler, texCoord);
     float width = ceil(DiffuseSize.x / Step);
@@ -142,7 +137,7 @@ void main() {
 
         samplepos = vec2(px, py);
         samplepos = (samplepos + 0.5) * inOneTexel;
-        float lightDepth = LinearizeDepth(texture(ItemEntityDepthSampler, samplepos).r);
+        float lightDepth = LinearizeDepth(texture(ItemEntityDepthSampler, samplepos).r / LIGHTDEPTH);
         samplepos = (samplepos - vec2(0.5)) * vec2(inAspectRatio, 1.0);
         vec3 lightWorldCoord = vec3(samplepos * conversionK * lightDepth, lightDepth);
 

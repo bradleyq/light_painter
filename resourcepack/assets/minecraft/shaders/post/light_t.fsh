@@ -2,7 +2,6 @@
 
 #moj_import <minecraft:utils.glsl>
 
-uniform sampler2D DiffuseSampler;
 uniform sampler2D DiffuseDepthSampler;
 uniform sampler2D LightsSampler;
 uniform sampler2D CompareDepthSampler;
@@ -16,10 +15,6 @@ flat in float conversionK;
 flat in float count;
 
 out vec4 outColor;
-
-float luminance(vec3 rgb) {
-    return max(max(rgb.r, rgb.g), rgb.b);
-}
 
 int decodeInt(vec4 ivec) {
     ivec.rgb *= 255.0;
@@ -38,11 +33,6 @@ vec4 encodeAlphaHDR(vec4 color) {
     float me = clamp(max(max(color.r, color.g), color.b), 1.0, 4.0);
     return vec4(color.rgb / me, 26.0 / 255.0 + (me - 1.0) * 224.0 / 255.0 / 3.0);
 }
-  
-float LinearizeDepth(float depth) {
-    float z = depth * 2.0 - 1.0;
-    return 2.0 * (NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));    
-}
 
 void main() {
     outColor = vec4(0.0);
@@ -50,7 +40,6 @@ void main() {
     float compDepth = texture(CompareDepthSampler, texCoord).r;
     float depth = LinearizeDepth(oDepth);
     if (oDepth < compDepth && depth < Range + LIGHTR) {
-        outColor = texture(DiffuseSampler, texCoord);
         vec4 aggColor = vec4(0.0, 0.0, 0.0, 1.0);
 
         vec2 pixCoord = texCoord;
@@ -71,6 +60,6 @@ void main() {
                 aggColor.rgb += clamp((pow(1.0 / (lightDist + SPREAD), 2.0) - CUTOFF) * BOOST, 0.0, 1.0) * lightColor * clamp(Range - length(lightWorldCoord), 0.0, 6.0) * clamp(min(lightPos.x, lightPos.y), 0.0, 0.05) * 20.0 / 6.0;
             }
         }
-        outColor.rgb = mix(outColor.rgb, aggColor.rgb, 0.7);
+        outColor.rgb = aggColor.rgb;
     }
 }

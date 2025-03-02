@@ -35,7 +35,11 @@ out vec4 glpos;
 out float marker;
 out float scale;
 
-#define HALFMARKER tmp.z / 360.0
+#define HALFMARKER tmp.z / 240.0
+
+float opz(vec4 pos, float factor, float bias) {
+    return (((pos.z / pos.w + 1.0) * 0.5 * factor + bias) * 2.0 - 1.0) * pos.w;
+}
 
 void main() {
     vertexDistance = fog_distance(Position, FogShape);
@@ -46,8 +50,9 @@ void main() {
 
     vec4 tmpcol = texture(Sampler0, UV0);
     vec4 tmp = ModelViewMat * vec4(Position, 1.0);
+    bool hand = isHand(FogStart, FogEnd);
 
-    marker = float(!isHand(FogStart, FogEnd) && (tmpcol.a == LIGHTALPHA));
+    marker = float(!hand && (tmpcol.a == LIGHTALPHA));
 
     if (marker > 0.0) {
         vertexColor = vec4(tmpcol.rgb, 1.0);
@@ -71,14 +76,11 @@ void main() {
         
         scale = abs(HALFMARKER * ProjMat[1][1] / tmp.z);
         tmp = ProjMat * tmp;
-
-        vec4 distProbe = inverse(ProjMat) * vec4(0.0, 0.0, 1.0, 1.0);
-        float far = round(length(distProbe.xyz / distProbe.w) / 64.0) * 64.0;
-        float k = (far + NEAR) / (far - NEAR);
-        tmp.z = (tmp.z - tmp.w * k) * 10.0 + tmp.w * k;
+        tmp.z = opz(tmp, LIGHTDEPTH, 0.0);
     }
     else {
         tmp = ProjMat * tmp;
+        if (!hand) tmp.z = opz(tmp, 1.0 - LIGHTDEPTH, LIGHTDEPTH * 0.9985);
     }
 
     glpos = tmp;

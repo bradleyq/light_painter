@@ -39,6 +39,6 @@ void main() {
             discard;
         }
         fragColor = linear_fog(vertexColor, vertexDistance, FogStart, FogEnd, FogColor);
-        fragColor.a = LIGHTALPHA;
+        fragColor.a = 1.0;
     }
 }

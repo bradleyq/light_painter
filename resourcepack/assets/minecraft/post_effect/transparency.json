@@ -4,8 +4,8 @@
         "swap2": {},
         "swap3": {},
         "passthrough": {},
-        "temporal1": {},
-        "temporal2": {},
+        "lightmap1": {},
+        "lightmap2": {},
         "lights": {"width": 1024, "height": 4, "bilinear": false }
     },
     "passes": [
@@ -177,10 +177,6 @@
             "program": "minecraft:post/light",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
-                    "target": "temporal1"
-                },
-                {
                     "sampler_name": "DiffuseDepth",
                     "target": "minecraft:main",
                     "use_depth_buffer": true
@@ -190,7 +186,7 @@
                     "target": "lights"
                 }
             ],
-            "output": "swap1",
+            "output": "lightmap1",
             "uniforms": [
                 {
                     "name":"FOV",
@@ -203,22 +199,8 @@
             ]
         },
         {
-            "program": "minecraft:post/blit",
-            "inputs": [
-                {
-                    "sampler_name": "In",
-                    "target": "swap1"
-                }
-            ],
-            "output": "temporal1"
-        },
-        {
             "program": "minecraft:post/light_t",
             "inputs": [
-                {
-                    "sampler_name": "Diffuse",
-                    "target": "temporal2"
-                },
                 {
                     "sampler_name": "DiffuseDepth",
                     "target": "minecraft:translucent",
@@ -234,7 +216,7 @@
                     "use_depth_buffer": true
                 }
             ],
-            "output": "swap1",
+            "output": "lightmap2",
             "uniforms": [
                 {
                     "name":"FOV",
@@ -245,16 +227,6 @@
                     "values": [ 128.0 ]
                 }
             ]
-        },
-        {
-            "program": "minecraft:post/blit",
-            "inputs": [
-                {
-                    "sampler_name": "In",
-                    "target": "swap1"
-                }
-            ],
-            "output": "temporal2"
         },
         {
             "program": "minecraft:post/blur_custom",
@@ -341,7 +313,7 @@
                 },
                 {
                     "sampler_name": "LightMap",
-                    "target": "temporal1"
+                    "target": "lightmap1"
                 },
                 {
                     "sampler_name": "Blur",
@@ -352,7 +324,7 @@
             "uniforms": [
                 {
                     "name":"Intensity",
-                    "values": [ 1.5 ]
+                    "values": [ 1.0 ]
                 }
             ]
         },
@@ -365,14 +337,14 @@
                 },
                 {
                     "sampler_name": "LightMap",
-                    "target": "temporal2"
+                    "target": "lightmap2"
                 }
             ],
             "output": "swap2",
             "uniforms": [
                 {
                     "name":"Intensity",
-                    "values": [ 1.5 ]
+                    "values": [ 1.0 ]
                 }
             ]
         },
