@@ -162,7 +162,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
 </table>
 
 ## Design and Performance
-This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated strip on the screen. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 50 lights. Real world performance scaling, however, is not linear. Expect best performance with **Lite** and worst with **Extended**.
+This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated light texture. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 50 lights. Real world performance scaling, however, is not linear. Expect best performance with **Lite** and worst with **Extended**.
 
 ## Usage
 See License.md for license info. This utility is a resourcepack + datapack combo. Installation of the datapack is not strictly required, but it is useful for ease of use.
@@ -187,7 +187,7 @@ To access lights to move or modify them (datapack):
 #### aggregate_1, aggregate_2, aggregate_3, aggregate_4, aggregate_5
 - Compute layers in search tree.
 #### aggregate_6
-- Traverses search tree to store light screen coordinates into bottom two pixel rows.
+- Traverses search tree to store light screen coordinates into a light storage texture.
 #### light, light_t
 - Computes lighting color at each screen pixel. This pass is run on diffuse and transparency targets respectively.
 #### light_apply, light_apply_t
