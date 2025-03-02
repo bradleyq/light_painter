@@ -5,6 +5,8 @@
 
 uniform sampler2D Sampler0;
 
+uniform mat4 ProjMat;
+
 uniform vec4 ColorModulator;
 uniform float FogStart;
 uniform float FogEnd;
@@ -23,6 +25,8 @@ in float scale;
 out vec4 fragColor;
 
 void main() {
+    bool hand = isHand(FogStart, FogEnd);
+    bool gui = isGUI(ProjMat);
 
     
     if (marker < 0.5) {
@@ -33,6 +37,13 @@ void main() {
         color *= vertexColor * ColorModulator;
         fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
         fragColor.a = fragColor.a < 0.1 ? 0.1 : fragColor.a;
+
+        if (!gui && gl_FragCoord.z <= LIGHTDEPTH) {
+            gl_FragDepth = LIGHTDEPTH + 10e-7;
+        }
+        else {
+            gl_FragDepth = gl_FragCoord.z;
+        }
     } else {
         float onePixelToUV = 0.55 / (gl_FragCoord.y * 2.0 / (glpos.y / glpos.w + 1.0) * scale);
         if (!(abs(texCoord2.x - 0.5) <= onePixelToUV && abs(texCoord2.y - 0.5) <= onePixelToUV)) {
@@ -40,5 +51,7 @@ void main() {
         }
         fragColor = linear_fog(vertexColor, vertexDistance, FogStart, FogEnd, FogColor);
         fragColor.a = 1.0;
+
+        gl_FragDepth = gl_FragCoord.z * LIGHTDEPTH;
     }
 }

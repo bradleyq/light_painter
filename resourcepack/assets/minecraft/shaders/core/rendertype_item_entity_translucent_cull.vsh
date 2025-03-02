@@ -51,8 +51,9 @@ void main() {
     vec4 tmpcol = texture(Sampler0, UV0);
     vec4 tmp = ModelViewMat * vec4(Position, 1.0);
     bool hand = isHand(FogStart, FogEnd);
+    bool gui = isGUI(ProjMat);
 
-    marker = float(!hand && (tmpcol.a == LIGHTALPHA));
+    marker = float(!hand && !gui && (tmpcol.a == LIGHTALPHA));
 
     if (marker > 0.0) {
         vertexColor = vec4(tmpcol.rgb, 1.0);
@@ -75,14 +76,9 @@ void main() {
         }
         
         scale = abs(HALFMARKER * ProjMat[1][1] / tmp.z);
-        tmp = ProjMat * tmp;
-        tmp.z = opz(tmp, LIGHTDEPTH, 0.0);
-    }
-    else {
-        tmp = ProjMat * tmp;
-        if (!hand) tmp.z = opz(tmp, 1.0 - LIGHTDEPTH, LIGHTDEPTH * 0.9985);
     }
 
+    tmp = ProjMat * tmp;
     glpos = tmp;
     gl_Position = tmp;
 

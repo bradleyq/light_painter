@@ -9,12 +9,16 @@
 
 #define LIGHTR 8.0
 #define SPREAD 3.0
-#define BOOST 10.0
+#define BOOST 12.0
 #define CUTOFF 0.02
 
 #define ALPHACUTOFF (21.5 / 255.0)
 #define LIGHTALPHA (24.0 / 255.0)
-#define LIGHTDEPTH 0.02
+#define LIGHTDEPTH 0.025
+
+bool isGUI(mat4 ProjMat) { 
+    return abs(ProjMat[2][3]) <= 1.0 / BIG;
+}
 
 bool isHand(float fogs, float foge) { // also includes panorama
     return fogs >= foge;

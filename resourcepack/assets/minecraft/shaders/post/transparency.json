@@ -1,5 +1,5 @@
 {
-    "vertex": "minecraft:post/screenquad",
+    "vertex": "minecraft:post/transparency",
     "fragment": "minecraft:post/transparency",
     "samplers": [
         { "name": "DiffuseSampler" },
@@ -17,6 +17,7 @@
     ],
     "uniforms": [
         { "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
-        { "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] }
+        { "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+        { "name": "Test",       "type": "float",     "count": 1,  "values": [ 1.0 ] }
     ]
 }

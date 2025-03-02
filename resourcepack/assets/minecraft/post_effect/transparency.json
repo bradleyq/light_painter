@@ -406,7 +406,13 @@
                     "use_depth_buffer": true
                 }
             ],
-            "output": "swap3"
+            "output": "swap3",
+            "uniforms": [
+                {
+                    "name":"Test",
+                    "values": [ 0.0 ]
+                }
+            ]
         },
         {
             "program": "minecraft:post/blit",

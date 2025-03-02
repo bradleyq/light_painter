@@ -15,7 +15,11 @@ uniform sampler2D WeatherDepthSampler;
 uniform sampler2D CloudsSampler;
 uniform sampler2D CloudsDepthSampler;
 
+uniform float Test;
+
 in vec2 texCoord;
+in vec2 oneTexel;
+
 
 #define NUM_LAYERS 6
 
@@ -26,18 +30,22 @@ int active_layers = 0;
 
 out vec4 fragColor;
 
-void try_insert( vec4 color, sampler2D dSampler, int ie ) {
+int try_insert( sampler2D cSampler, sampler2D dSampler, vec2 coord, int ie ) {
+    vec4 color = texture(cSampler, coord);
     if ( color.a == 0.0 ) {
-        return;
+        return 0;
     }
 
-    float depth = texture( dSampler, texCoord ).r;
+    float depth = texture( dSampler, coord ).r;
     if (ie > 0) {
-        if (depth >= LIGHTDEPTH) {
-            depth = (depth - LIGHTDEPTH) / (1.0 - LIGHTDEPTH);
-        }
-        else {
-            return;
+        if (depth < LIGHTDEPTH) {
+            if (Test > 0.0) {
+                color.rgb = vec3(0.0, 1.0, 0.0);
+                depth = 0.0;
+            }
+            else {
+                return 1;
+            }
         }
     }
     color_layers[active_layers] = color;
@@ -52,6 +60,8 @@ void try_insert( vec4 color, sampler2D dSampler, int ie ) {
 
         jj = ii--;
     }
+
+    return 2;
 }
 
 vec3 blend( vec3 dst, vec4 src ) {
@@ -63,11 +73,16 @@ void main() {
     depth_layers[0] = texture( DiffuseDepthSampler, texCoord ).r;
     active_layers = 1;
 
-    try_insert( texture( CloudsSampler, texCoord ), CloudsDepthSampler, 0);
-    try_insert( texture( TranslucentSampler, texCoord ), TranslucentDepthSampler, 0);
-    try_insert( texture( ParticlesSampler, texCoord ), ParticlesDepthSampler, 0);
-    try_insert( texture( WeatherSampler, texCoord ), WeatherDepthSampler, 0);
-    try_insert( texture( ItemEntitySampler, texCoord ), ItemEntityDepthSampler, 1);
+    try_insert(CloudsSampler, CloudsDepthSampler, texCoord, 0);
+    try_insert(TranslucentSampler, TranslucentDepthSampler, texCoord, 0);
+    try_insert(ParticlesSampler, ParticlesDepthSampler, texCoord, 0);
+    try_insert(WeatherSampler, WeatherDepthSampler, texCoord, 0);
+    if (try_insert(ItemEntitySampler, ItemEntityDepthSampler, texCoord, 1) == 1) {
+        if (try_insert(ItemEntitySampler, ItemEntityDepthSampler, texCoord + vec2(0.0, oneTexel.y), 1) == 1) {
+            try_insert(ItemEntitySampler, ItemEntityDepthSampler, texCoord + vec2(0.0, -oneTexel.y), 1);
+        }
+        
+    }
     
     vec3 texelAccum = color_layers[index_layers[0]].rgb;
     for ( int ii = 1; ii < active_layers; ++ii ) {
