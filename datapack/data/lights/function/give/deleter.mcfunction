@@ -1,1 +1,1 @@
-give @p minecraft:enderman_spawn_egg[minecraft:entity_data={Invulnerable:1b,Tags:["deleter"],id:"minecraft:item_display"},minecraft:custom_name='[{"text":"Light Delete","italic":false}]']
+give @p minecraft:enderman_spawn_egg[minecraft:entity_data={Tags:["deleter"],id:"minecraft:item_display"},minecraft:custom_name='[{"text":"Light Delete","italic":false}]']

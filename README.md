@@ -1,4 +1,4 @@
-# Light Painter [EXPERIMENTAL!][1.21.2]
+# Light Painter [EXPERIMENTAL!][1.21.4]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
@@ -10,6 +10,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
 
 ### What it does:
 - dynamic placable lights of any hue and any brightness
+- customizable color using `custom_model_data` `colors` component
 - fair performance hit (for what it does)
 - datapack includes custom spawners for placing and deleting lights
 - correctly blends with transparency
@@ -130,7 +131,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
 </table>
 
 ## Design and Performance
-This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated light texture. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 50 lights. Real world performance scaling, however, is not linear. Expect best performance with **Lite** and worst with **Extended**.
+This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated light texture. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 50 lights. Real world performance scaling, however, is not linear. Use **Universal** version. Alternate versions are deprecated and not maintained.
 
 ## Usage
 See License.md for license info. This utility is a resourcepack + datapack combo. Installation of the datapack is not strictly required, but it is useful for ease of use.
@@ -173,10 +174,11 @@ To access lights to move or modify them (datapack):
 - `FAR` approximate far clipping plane in blocks. Affects light position precision. Default 1024.0.
 - `LIGHTR` distance in blocks where a pixel is considered out of a light's range. Default 8.0.
 - `SPREAD` how much a light spreads. `BOOST` may need to increase if this increases. Default 3.0.
-- `BOOST` how much to boost lights. Similar to `Intensity` but applies before composite and HDR mapping. Default 12.0.
+- `BOOST` how much to boost lights. Similar to `Intensity` but applies before composite and HDR mapping. Default 13.0.
 - `CUTOFF` at what level where light is considered 0.0. Default 0.02.
 - `LIGHTALPHA` marker texture alpha. Use an uncommon alpha, best if less than 0.1 and greater than `ALPHACUTOFF`. Default 24.0/255.0.
 - `LIGHTDEPTH` depth buffer reserved for lights. Increase this to improve light position precision at the cost of item render precision. Default 0.025.
 
 ## Credits
 - example screenshots are from the map "Cyberpunk Project" by Elysium Fire
+- [Jatzylap](https://github.com/Jatzylap) for providing custom light colors using item tint

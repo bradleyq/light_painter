@@ -1,0 +1,139 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "entries": [
+      {
+        "threshold": 6700,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_custom",
+          "tints": [
+            {
+              "type": "minecraft:custom_model_data",
+              "index": 0,
+              "default": 0
+            }
+          ]
+        }
+      },
+      {
+        "threshold": 6701,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp"
+        }
+      },
+      {
+        "threshold": 6702,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_tungsten"
+        }
+      },
+      {
+        "threshold": 6703,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_white"
+        }
+      },
+      {
+        "threshold": 6704,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_monitor"
+        }
+      },
+      {
+        "threshold": 6705,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_red"
+        }
+      },
+      {
+        "threshold": 6706,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_orange"
+        }
+      },
+      {
+        "threshold": 6707,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_yellow"
+        }
+      },
+      {
+        "threshold": 6708,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_lime"
+        }
+      },
+      {
+        "threshold": 6709,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_green"
+        }
+      },
+      {
+        "threshold": 6710,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_mint"
+        }
+      },
+      {
+        "threshold": 6711,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_cyan"
+        }
+      },
+      {
+        "threshold": 6712,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_azure"
+        }
+      },
+      {
+        "threshold": 6713,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_blue"
+        }
+      },
+      {
+        "threshold": 6714,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_violet"
+        }
+      },
+      {
+        "threshold": 6715,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_magenta"
+        }
+      },
+      {
+        "threshold": 6716,
+        "model": {
+          "type": "minecraft:model",
+          "model": "minecraft:item/lp_pink"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:block/lime_stained_glass"
+    }
+  }
+}

@@ -56,7 +56,7 @@ void main() {
     marker = float(!hand && !gui && (tmpcol.a == LIGHTALPHA));
 
     if (marker > 0.0) {
-        vertexColor = vec4(tmpcol.rgb, 1.0);
+        vertexColor = vec4(tmpcol.rgb, 1.0) * Color;
         
         if (gl_VertexID % 4 == 0) {
             tmp.xy += vec2(-HALFMARKER, HALFMARKER);

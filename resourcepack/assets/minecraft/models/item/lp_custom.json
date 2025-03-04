@@ -3,8 +3,8 @@
 	"ambientocclusion": false,
 	"textures":
 	{
-		"0":"misc/black",
-		"particle":"misc/black"
+		"0":"misc/white",
+		"particle":"misc/white"
 	},
 	"elements":
 		[
@@ -23,7 +23,8 @@
 						{
 							"uv": [0.5,0.5,0.5,0.5],
 							"rotation": 90,
-							"texture": "#0"
+							"texture": "#0",
+							"tintindex": 0
 						}
 					}
 			}
