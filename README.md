@@ -158,7 +158,7 @@ To access lights to move or modify them (datapack):
 #### aggregate_6
 - Traverses search tree to store light screen coordinates into a light storage texture.
 #### light_apply, light_apply_t, light_apply_i
-- Computes lighting color at each screen pixel and apply the lighting to designated target. main, translucent, item_entity.
+- Computes lighting color at each screen pixel and apply the lighting to designated target. `minecraft:main`, `minecraft:translucent`, `minecraft:item_entity`.
 #### transparency
 - Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
 
