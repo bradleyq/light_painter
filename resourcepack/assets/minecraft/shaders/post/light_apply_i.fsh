@@ -8,6 +8,7 @@ uniform sampler2D LightsSampler;
 uniform sampler2D CompareDepthSampler;
 uniform float Range;
 uniform float IntensityT;
+uniform float Intensity;
 
 in vec2 texCoord;
 flat in vec2 oneTexel;
@@ -34,7 +35,7 @@ void main() {
         float compDepth = texture(CompareDepthSampler, texCoord).r;
         float depth = LinearizeDepth(oDepth);
 
-        if (oDepth < compDepth && depth < Range + LIGHTR) {
+        if (oDepth >= LIGHTDEPTH && oDepth < compDepth && depth < Range + LIGHTR) {
             vec4 aggColor = vec4(0.0, 0.0, 0.0, 1.0);
             vec2 screenCoord = (texCoord - vec2(0.5)) * vec2(aspectRatio, 1.0);
             float conversion = conversionK * depth;
@@ -54,8 +55,9 @@ void main() {
                 }
             }
 
-            outColor.rgb *= vec3(1.0) + aggColor.rgb * IntensityT * 5.0 * pow(1.0 - clamp(length(outColor.rgb), 0.0, 1.0), 3.0);
-            outColor.rgb += IntensityT * aggColor.rgb * 0.1;
+            float IntensityV = outColor.a < 1.0 ? IntensityT : Intensity;
+            outColor.rgb *= vec3(1.0) + aggColor.rgb * IntensityV * 5.0 * pow(1.0 - clamp(length(outColor.rgb), 0.0, 1.0), 3.0);
+            outColor.rgb += IntensityV * aggColor.rgb * 0.1;
         }
     }
 }

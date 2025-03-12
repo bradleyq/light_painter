@@ -3,9 +3,7 @@
         "swap1": {},
         "swap2": {},
         "swap3": {},
-        "passthrough": {},
-        "lightmap1": {},
-        "lightmap2": {},
+        "swap4": {},
         "lights": {"width": 1024, "height": 4, "bilinear": false }
     },
     "passes": [
@@ -174,61 +172,6 @@
             ]
         },
         {
-            "program": "minecraft:post/light",
-            "inputs": [
-                {
-                    "sampler_name": "DiffuseDepth",
-                    "target": "minecraft:main",
-                    "use_depth_buffer": true
-                },
-                {
-                    "sampler_name": "Lights",
-                    "target": "lights"
-                }
-            ],
-            "output": "lightmap1",
-            "uniforms": [
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
-                    "name":"Range",
-                    "values": [ 128.0 ]
-                }
-            ]
-        },
-        {
-            "program": "minecraft:post/light_t",
-            "inputs": [
-                {
-                    "sampler_name": "DiffuseDepth",
-                    "target": "minecraft:translucent",
-                    "use_depth_buffer": true
-                },
-                {
-                    "sampler_name": "Lights",
-                    "target": "lights"
-                },
-                {
-                    "sampler_name": "CompareDepth",
-                    "target": "minecraft:main",
-                    "use_depth_buffer": true
-                }
-            ],
-            "output": "lightmap2",
-            "uniforms": [
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
-                    "name":"Range",
-                    "values": [ 128.0 ]
-                }
-            ]
-        },
-        {
             "program": "minecraft:post/blur_custom",
             "inputs": [
                 {
@@ -312,8 +255,13 @@
                     "target": "minecraft:main"
                 },
                 {
-                    "sampler_name": "LightMap",
-                    "target": "lightmap1"
+                    "sampler_name": "DiffuseDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Lights",
+                    "target": "lights"
                 },
                 {
                     "sampler_name": "Blur",
@@ -322,6 +270,14 @@
             ],
             "output": "swap1",
             "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 128.0 ]
+                },
                 {
                     "name":"Intensity",
                     "values": [ 1.0 ]
@@ -336,12 +292,72 @@
                     "target": "minecraft:translucent"
                 },
                 {
-                    "sampler_name": "LightMap",
-                    "target": "lightmap2"
+                    "sampler_name": "DiffuseDepth",
+                    "target": "minecraft:translucent",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Lights",
+                    "target": "lights"
+                },
+                {
+                    "sampler_name": "CompareDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
                 }
             ],
             "output": "swap2",
             "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 128.0 ]
+                },
+                {
+                    "name":"IntensityT",
+                    "values": [ 0.5 ]
+                }
+            ]
+        },
+        {
+            "program": "minecraft:post/light_apply_i",
+            "inputs": [
+                {
+                    "sampler_name": "Diffuse",
+                    "target": "minecraft:item_entity"
+                },
+                {
+                    "sampler_name": "DiffuseDepth",
+                    "target": "minecraft:item_entity",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "Lights",
+                    "target": "lights"
+                },
+                {
+                    "sampler_name": "CompareDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                }
+            ],
+            "output": "swap3",
+            "uniforms": [
+                {
+                    "name":"FOV",
+                    "values": [ 70.0 ]
+                },
+                {
+                    "name":"Range",
+                    "values": [ 128.0 ]
+                },
+                {
+                    "name":"IntensityT",
+                    "values": [ 0.5 ]
+                },
                 {
                     "name":"Intensity",
                     "values": [ 1.0 ]
@@ -371,7 +387,7 @@
                 },
                 {
                     "sampler_name": "ItemEntity",
-                    "target": "minecraft:item_entity"
+                    "target": "swap3"
                 },
                 {
                     "sampler_name": "ItemEntityDepth",
@@ -406,7 +422,7 @@
                     "use_depth_buffer": true
                 }
             ],
-            "output": "swap3",
+            "output": "swap4",
             "uniforms": [
                 {
                     "name":"Test",
@@ -419,7 +435,7 @@
             "inputs": [
                 {
                     "sampler_name": "In",
-                    "target": "swap3"
+                    "target": "swap4"
                 }
             ],
             "output": "minecraft:main"

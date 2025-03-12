@@ -9,7 +9,7 @@
 
 #define LIGHTR 8.0
 #define SPREAD 3.0
-#define BOOST 13.0
+#define BOOST 10.0
 #define CUTOFF 0.02
 
 #define ALPHACUTOFF (21.5 / 255.0)

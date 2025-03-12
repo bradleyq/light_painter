@@ -82,7 +82,7 @@ void main() {
 
     vec3 tmpCol = vec3(0.0);
 
-    for(int i = 0; i <= ITERATIONS; i += 1) {
+    for(int i = 0; i < ITERATIONS; i += 1) {
         tmpCol += texture(DiffuseSampler, texCoord + poissonDisk[i + int(Offset)] * vec2(1.0 / aspectRatio, 1.0) * Radius).rgb;
     }
     outColor = vec4(tmpCol / ITERATIONS, 1.0);
