@@ -157,10 +157,8 @@ To access lights to move or modify them (datapack):
 - Compute layers in search tree.
 #### aggregate_6
 - Traverses search tree to store light screen coordinates into a light storage texture.
-#### light, light_t
-- Computes lighting color at each screen pixel. This pass is run on diffuse and transparency targets respectively.
-#### light_apply, light_apply_t
-- Apply lighting to designated target.
+#### light_apply, light_apply_t, light_apply_i
+- Computes lighting color at each screen pixel and apply the lighting to designated target. main, translucent, item_entity.
 #### transparency
 - Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
 
@@ -168,13 +166,14 @@ To access lights to move or modify them (datapack):
 #### post_effect/transparency.json
 - uniform `Range` light approximate range in blocks. Default 128.0.
 - uniform `FOV` approximate FOV. Affects light position precision. Default 70.0.
-- uniform `Intensity` light strength. Default 1.0.
+- uniform `Intensity` light strength on solid objects. Default 1.0.
+- uniform `IntensityT` light strength on translucent objects. Default 0.5.
 #### shaders/include/utils.glsl
 - `NEAR` near clipping plane in blocks. Do not change. Default 0.05.
 - `FAR` approximate far clipping plane in blocks. Affects light position precision. Default 1024.0.
 - `LIGHTR` distance in blocks where a pixel is considered out of a light's range. Default 8.0.
 - `SPREAD` how much a light spreads. `BOOST` may need to increase if this increases. Default 3.0.
-- `BOOST` how much to boost lights. Similar to `Intensity` but applies before composite and HDR mapping. Default 13.0.
+- `BOOST` how much to boost lights. Similar to `Intensity` but applies before composite and HDR mapping. Default 10.0.
 - `CUTOFF` at what level where light is considered 0.0. Default 0.02.
 - `LIGHTALPHA` marker texture alpha. Use an uncommon alpha, best if less than 0.1 and greater than `ALPHACUTOFF`. Default 24.0/255.0.
 - `LIGHTDEPTH` depth buffer reserved for lights. Increase this to improve light position precision at the cost of item render precision. Default 0.025.
