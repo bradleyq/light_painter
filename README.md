@@ -146,7 +146,7 @@ To access lights to move or modify them (datapack):
 
 ## Shading Passes and Descriptions
 #### rendertype_item_entity_translucent_cull
-- Transform custom model to billboard. Find approximate center pixel of marker and discard rest. Compress the marker depth to [0.0, 0.025], push time entities to (0.025, 1.0].
+- Transform custom model to billboard. Find approximate center pixel of marker and discard rest. Compress the marker depth to [0.0, 0.025], item entities use (0.025, 1.0].
 #### filter
 - Filter `minecraft:item_entity` target for light markers.
 #### blur_custom
@@ -176,7 +176,7 @@ To access lights to move or modify them (datapack):
 - `BOOST` how much to boost lights. Similar to `Intensity` but applies before composite and HDR mapping. Default 10.0.
 - `CUTOFF` at what level where light is considered 0.0. Default 0.02.
 - `LIGHTALPHA` marker texture alpha. Use an uncommon alpha, best if less than 0.1 and greater than `ALPHACUTOFF`. Default 24.0/255.0.
-- `LIGHTDEPTH` depth buffer reserved for lights. Increase this to improve light position precision at the cost of item render precision. Default 0.025.
+- `LIGHTDEPTH` depth buffer reserved for lights. Increase this to improve light position precision at the cost of minimum item depth. Default 0.025.
 
 ## Credits
 - example screenshots are from the map "Cyberpunk Project" by Elysium Fire
