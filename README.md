@@ -1,4 +1,4 @@
-# Light Painter [EXPERIMENTAL!][1.21.5]
+# Light Painter [1.21.5]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
