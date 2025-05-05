@@ -1,11 +1,12 @@
 #version 150
 
+#moj_import <minecraft:utils.glsl>
+
 in vec4 Position;
 
 uniform mat4 ProjMat;
-uniform vec2 DiffuseSize;
+uniform vec2 SearchLayerSize;
 uniform vec2 OutSize;
-uniform float FOV;
 
 out vec2 texCoord;
 flat out vec2 inOneTexel;
@@ -22,8 +23,8 @@ void main(){
         y = 1.0;
     }
 
-    inAspectRatio = DiffuseSize.x / DiffuseSize.y;
-    inOneTexel = 1.0 / DiffuseSize;
+    inAspectRatio = SearchLayerSize.x / SearchLayerSize.y;
+    inOneTexel = 1.0 / SearchLayerSize;
     texCoord = Position.xy / OutSize;
     conversionK = tan(FOV / 360.0 * 3.14159265358979) * 2.0;
 

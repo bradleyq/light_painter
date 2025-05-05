@@ -1,10 +1,10 @@
-# Light Painter [EXPERIMENTAL!][1.21.4]
+# Light Painter [EXPERIMENTAL!][1.21.5]
 <img src="/images/2.png" alt="Image3"/>
 
 ## Overview
 **MAY CONTAIN BUGS!!!**
 
-**NOT COMPATIBLE WITH PREVIOUS VERSION!!! DO NOT LOAD OLD LIGHTS WITH THE NEW LIGHT PAINTER!!!**
+**MAY NOT BE COMPATIBLE WITH PREVIOUS VERSION!!! DO NOT LOAD OLD LIGHTS WITH THE NEW LIGHT PAINTER!!!**
 
 Screen space point lights using MC's exposed transparency shaders. Requires "Fabulous" graphics setting.
 
@@ -16,7 +16,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
 - correctly blends with transparency
 - lighting translucent blocks
 - fade out at long ranges
-- render occluded lights (most of the time)
+- render occluded lights
 
 ### What it does not do:
 - render out of frame lights
@@ -131,7 +131,7 @@ Screen space point lights using MC's exposed transparency shaders. Requires "Fab
 </table>
 
 ## Design and Performance
-This shader is composed of multiple passes in three main stages: finding light centers, constructing search tree, and computing final lighting per pixel. Performance is achieved through use of shading passes to store point light information in a designated light texture. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 50 lights. Real world performance scaling, however, is not linear. Use **Universal** version. Alternate versions are deprecated and not maintained.
+This shader is composed of multiple passes in four main stages: finding light centers, constructing search tree, constructing spatial bins, and computing final lighting per pixel. Performance is achieved by storing point light information in a designated light texture and sorting the lights spatially for fast lookup in the shading stage. This allows for vastly reduced texture accesses during the final rendering pass, resulting in performance that scales linarly with number of lights. This is by no means scientific, but the performance hit is around 50% with 100 lights. Real world performance scaling, however, is not linear. Use **Universal** version for best results. Alternate versions are deprecated and not maintained.
 
 ## Usage
 See License.md for license info. This utility is a resourcepack + datapack combo. Installation of the datapack is not strictly required, but it is useful for ease of use.
@@ -157,6 +157,8 @@ To access lights to move or modify them (datapack):
 - Compute layers in search tree.
 #### aggregate_6
 - Traverses search tree to store light screen coordinates into a light storage texture.
+#### zone_calc
+- Place light references in spatial bins.
 #### light_apply, light_apply_t, light_apply_i
 - Computes lighting color at each screen pixel and apply the lighting to designated target. `minecraft:main`, `minecraft:translucent`, `minecraft:item_entity`.
 #### transparency
@@ -164,19 +166,23 @@ To access lights to move or modify them (datapack):
 
 ## Configuration
 #### post_effect/transparency.json
-- uniform `Range` light approximate range in blocks. Default 128.0.
-- uniform `FOV` approximate FOV. Affects light position precision. Default 70.0.
-- uniform `Intensity` light strength on solid objects. Default 1.0.
-- uniform `IntensityT` light strength on translucent objects. Default 0.5.
 #### shaders/include/utils.glsl
-- `NEAR` near clipping plane in blocks. Do not change. Default 0.05.
-- `FAR` approximate far clipping plane in blocks. Affects light position precision. Default 1024.0.
+- `LIGHTRANGE` light approximate range in blocks. Default 128.0.
+- `LIGHTINTENSITY` light strength on solid objects. Default 1.0.
+- `LIGHTINTENSITYT` light strength on translucent objects. Default 0.5.
 - `LIGHTR` distance in blocks where a pixel is considered out of a light's range. Default 8.0.
 - `SPREAD` how much a light spreads. `BOOST` may need to increase if this increases. Default 3.0.
 - `BOOST` how much to boost lights. Similar to `Intensity` but applies before composite and HDR mapping. Default 10.0.
 - `CUTOFF` at what level where light is considered 0.0. Default 0.02.
+- `NEAR` near clipping plane in blocks. Do not change. Default 0.05.
+- `FAR` approximate far clipping plane in blocks (4 * render range). Affects light position precision. Default 1024.0.
+- `FOV` approximate FOV. Affects light position precision. Default 70.0.
 - `LIGHTALPHA` marker texture alpha. Use an uncommon alpha, best if less than 0.1 and greater than `ALPHACUTOFF`. Default 24.0/255.0.
 - `LIGHTDEPTH` depth buffer reserved for lights. Increase this to improve light position precision at the cost of minimum item depth. Default 0.025.
+- `LIGHTVOLX` number of spatial bins along the x axis in camera space. May affect performance. Default 32.
+- `LIGHTVOLZ` number of spatial bins along the z axis in camera space. May affect performance. Default 16.
+- `AGGSTEP0` first level search tree downscale. May affect performance. Default 8.
+- `AGGSTEP1` second level search tree downscale. May affect performance. Default 8.
 
 ## Credits
 - example screenshots are from the map "Cyberpunk Project" by Elysium Fire

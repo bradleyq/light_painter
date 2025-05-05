@@ -6,7 +6,11 @@
 
 #define NEAR 0.05
 #define FAR 1024.0
+#define FOV 70.0
 
+#define LIGHTINTENSITY 1.0
+#define LIGHTINTENSITYT 0.5
+#define LIGHTRANGE 128.0
 #define LIGHTR 8.0
 #define SPREAD 3.0
 #define BOOST 10.0
@@ -15,6 +19,11 @@
 #define ALPHACUTOFF (21.5 / 255.0)
 #define LIGHTALPHA (24.0 / 255.0)
 #define LIGHTDEPTH 0.025
+
+#define LIGHTVOLX 32
+#define LIGHTVOLZ 16
+#define AGGSTEP0 8
+#define AGGSTEP1 8
 
 bool isGUI(mat4 ProjMat) { 
     return abs(ProjMat[2][3]) <= 1.0 / BIG;

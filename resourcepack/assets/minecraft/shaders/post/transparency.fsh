@@ -2,8 +2,8 @@
 
 #moj_import <minecraft:utils.glsl>
 
-uniform sampler2D DiffuseSampler;
-uniform sampler2D DiffuseDepthSampler;
+uniform sampler2D MainSampler;
+uniform sampler2D MainDepthSampler;
 uniform sampler2D TranslucentSampler;
 uniform sampler2D TranslucentDepthSampler;
 uniform sampler2D ItemEntitySampler;
@@ -15,7 +15,7 @@ uniform sampler2D WeatherDepthSampler;
 uniform sampler2D CloudsSampler;
 uniform sampler2D CloudsDepthSampler;
 
-uniform float Test;
+uniform int Test;
 
 in vec2 texCoord;
 in vec2 oneTexel;
@@ -39,7 +39,7 @@ int try_insert( sampler2D cSampler, sampler2D dSampler, vec2 coord, int ie ) {
     float depth = texture( dSampler, coord ).r;
     if (ie > 0) {
         if (depth < LIGHTDEPTH) {
-            if (Test > 0.0) {
+            if (Test == 1) {
                 color.rgb = vec3(0.0, 1.0, 0.0);
                 depth = 0.0;
             }
@@ -69,8 +69,8 @@ vec3 blend( vec3 dst, vec4 src ) {
 }
 
 void main() {
-    color_layers[0] = vec4( texture( DiffuseSampler, texCoord ).rgb, 1.0 );
-    depth_layers[0] = texture( DiffuseDepthSampler, texCoord ).r;
+    color_layers[0] = vec4( texture( MainSampler, texCoord ).rgb, 1.0 );
+    depth_layers[0] = texture( MainDepthSampler, texCoord ).r;
     active_layers = 1;
 
     try_insert(CloudsSampler, CloudsDepthSampler, texCoord, 0);

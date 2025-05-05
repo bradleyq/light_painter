@@ -4,145 +4,133 @@
         "swap2": {},
         "swap3": {},
         "swap4": {},
-        "lights": {"width": 1024, "height": 4, "bilinear": false }
+        "lights": {"width": 1024, "height": 4, "bilinear": false },
+        "volume": {"width": 1024, "height": 512, "bilinear": false }
     },
     "passes": [
         {
-            "program": "minecraft:post/filter",
+            "vertex_shader": "minecraft:post/filter",
+            "fragment_shader": "minecraft:post/filter",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "ItemEntity",
                     "target": "minecraft:item_entity"
                 },
                 {
-                    "sampler_name": "DiffuseDepth",
+                    "sampler_name": "ItemEntityDepth",
                     "target": "minecraft:item_entity",
                     "use_depth_buffer": true
                 }
             ],
-            "output": "swap1",
-            "uniforms": [
-                {
-                    "name":"Range",
-                    "values": [ 128.0 ]
-                }
-            ]
+            "output": "swap1"
         },
         {
-            "program": "minecraft:post/centers",
+            "vertex_shader": "minecraft:post/centers",
+            "fragment_shader": "minecraft:post/centers",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "ApproxCenters",
                     "target": "swap1"
                 }
             ],
             "output": "swap3"
         },
         {
-            "program": "minecraft:post/aggregate_1",
+            "vertex_shader": "minecraft:post/aggregate",
+            "fragment_shader": "minecraft:post/aggregate_1",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "SearchLayer",
                     "target": "swap3"
                 }
             ],
             "output": "swap1",
             "uniforms": [
                 {
-                    "name":"Step",
-                    "values": [ 8.0 ]
-                },
-                {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/aggregate_2",
+            "vertex_shader": "minecraft:post/aggregate",
+            "fragment_shader": "minecraft:post/aggregate_2",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "SearchLayer",
                     "target": "swap1"
                 }
             ],
             "output": "swap2",
             "uniforms": [
                 {
-                    "name":"Step",
-                    "values": [ 8.0 ]
-                },
-                {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/aggregate_3",
+            "vertex_shader": "minecraft:post/aggregate",
+            "fragment_shader": "minecraft:post/aggregate_3",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "SearchLayer",
                     "target": "swap2"
                 }
             ],
             "output": "swap1",
             "uniforms": [
                 {
-                    "name":"Step",
-                    "values": [ 8.0 ]
-                },
-                {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/aggregate_4",
+            "vertex_shader": "minecraft:post/aggregate",
+            "fragment_shader": "minecraft:post/aggregate_4",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "SearchLayer",
                     "target": "swap1"
                 }
             ],
             "output": "swap2",
             "uniforms": [
                 {
-                    "name":"Step",
-                    "values": [ 8.0 ]
-                },
-                {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/aggregate_5",
+            "vertex_shader": "minecraft:post/aggregate",
+            "fragment_shader": "minecraft:post/aggregate_5",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "SearchLayer",
                     "target": "swap2"
                 }
             ],
             "output": "swap1",
             "uniforms": [
                 {
-                    "name":"Step",
-                    "values": [ 8.0 ]
-                },
-                {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/aggregate_6",
+            "vertex_shader": "minecraft:post/aggregate_6",
+            "fragment_shader": "minecraft:post/aggregate_6",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "SearchLayer",
                     "target": "swap1"
                 },
                 {
@@ -158,24 +146,29 @@
             "output": "lights",
             "uniforms": [
                 {
-                    "name":"Step",
-                    "values": [ 8.0 ]
-                },
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/blur_custom",
+            "vertex_shader": "minecraft:post/zone_calc",
+            "fragment_shader": "minecraft:post/zone_calc",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "Lights",
+                    "target": "lights"
+                }
+            ],
+            "output": "volume"
+        },
+        {
+            "vertex_shader": "minecraft:post/blur_custom",
+            "fragment_shader": "minecraft:post/blur_custom",
+            "inputs": [
+                {
+                    "sampler_name": "In",
                     "target": "minecraft:main"
                 }
             ],
@@ -183,15 +176,22 @@
             "uniforms": [
                 {
                     "name": "Radius",
+                    "type":"float",
                     "values": [ 0.01 ]
+                },
+                {
+                    "name": "Offset",
+                    "type":"float",
+                    "values": [ 0.0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/blur_custom",
+            "vertex_shader": "minecraft:post/blur_custom",
+            "fragment_shader": "minecraft:post/blur_custom",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "In",
                     "target": "swap1"
                 }
             ],
@@ -199,19 +199,22 @@
             "uniforms": [
                 {
                     "name": "Radius",
+                    "type":"float",
                     "values": [ 0.015 ]
                 },
                 {
                     "name": "Offset",
+                    "type":"float",
                     "values": [ 7.0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/blur_custom",
+            "vertex_shader": "minecraft:post/blur_custom",
+            "fragment_shader": "minecraft:post/blur_custom",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "In",
                     "target": "swap3"
                 }
             ],
@@ -219,19 +222,22 @@
             "uniforms": [
                 {
                     "name": "Radius",
+                    "type":"float",
                     "values": [ 0.02 ]
                 },
                 {
                     "name": "Offset",
+                    "type":"float",
                     "values": [ 21.0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/blur_custom",
+            "vertex_shader": "minecraft:post/blur_custom",
+            "fragment_shader": "minecraft:post/blur_custom",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "In",
                     "target": "swap1"
                 }
             ],
@@ -239,16 +245,19 @@
             "uniforms": [
                 {
                     "name": "Radius",
+                    "type":"float",
                     "values": [ 0.02 ]
                 },
                 {
                     "name": "Offset",
+                    "type":"float",
                     "values": [ 45.0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/light_apply",
+            "vertex_shader": "minecraft:post/light_apply",
+            "fragment_shader": "minecraft:post/light_apply",
             "inputs": [
                 {
                     "sampler_name": "Diffuse",
@@ -264,28 +273,19 @@
                     "target": "lights"
                 },
                 {
+                    "sampler_name": "Volume",
+                    "target": "volume"
+                },
+                {
                     "sampler_name": "Blur",
                     "target": "swap3"
                 }
             ],
-            "output": "swap1",
-            "uniforms": [
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
-                    "name":"Range",
-                    "values": [ 128.0 ]
-                },
-                {
-                    "name":"Intensity",
-                    "values": [ 1.0 ]
-                }
-            ]
+            "output": "swap1"
         },
         {
-            "program": "minecraft:post/light_apply_t",
+            "vertex_shader": "minecraft:post/light_apply",
+            "fragment_shader": "minecraft:post/light_apply_t",
             "inputs": [
                 {
                     "sampler_name": "Diffuse",
@@ -301,29 +301,20 @@
                     "target": "lights"
                 },
                 {
+                    "sampler_name": "Volume",
+                    "target": "volume"
+                },
+                {
                     "sampler_name": "CompareDepth",
                     "target": "minecraft:main",
                     "use_depth_buffer": true
                 }
             ],
-            "output": "swap2",
-            "uniforms": [
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
-                    "name":"Range",
-                    "values": [ 128.0 ]
-                },
-                {
-                    "name":"IntensityT",
-                    "values": [ 0.5 ]
-                }
-            ]
+            "output": "swap2"
         },
         {
-            "program": "minecraft:post/light_apply_i",
+            "vertex_shader": "minecraft:post/light_apply",
+            "fragment_shader": "minecraft:post/light_apply_i",
             "inputs": [
                 {
                     "sampler_name": "Diffuse",
@@ -339,40 +330,27 @@
                     "target": "lights"
                 },
                 {
+                    "sampler_name": "Volume",
+                    "target": "volume"
+                },
+                {
                     "sampler_name": "CompareDepth",
                     "target": "minecraft:main",
                     "use_depth_buffer": true
                 }
             ],
-            "output": "swap3",
-            "uniforms": [
-                {
-                    "name":"FOV",
-                    "values": [ 70.0 ]
-                },
-                {
-                    "name":"Range",
-                    "values": [ 128.0 ]
-                },
-                {
-                    "name":"IntensityT",
-                    "values": [ 0.5 ]
-                },
-                {
-                    "name":"Intensity",
-                    "values": [ 1.0 ]
-                }
-            ]
+            "output": "swap3"
         },
         {
-            "program": "minecraft:post/transparency",
+            "vertex_shader": "minecraft:post/transparency",
+            "fragment_shader": "minecraft:post/transparency",
             "inputs": [
                 {
-                    "sampler_name": "Diffuse",
+                    "sampler_name": "Main",
                     "target": "swap1"
                 },
                 {
-                    "sampler_name": "DiffuseDepth",
+                    "sampler_name": "MainDepth",
                     "target": "minecraft:main",
                     "use_depth_buffer": true
                 },
@@ -426,19 +404,28 @@
             "uniforms": [
                 {
                     "name":"Test",
-                    "values": [ 0.0 ]
+                    "type":"int",
+                    "values": [ 0 ]
                 }
             ]
         },
         {
-            "program": "minecraft:post/blit",
+            "vertex_shader": "minecraft:post/blit",
+            "fragment_shader": "minecraft:post/blit",
             "inputs": [
                 {
                     "sampler_name": "In",
                     "target": "swap4"
                 }
             ],
-            "output": "minecraft:main"
+            "output": "minecraft:main",
+            "uniforms": [
+                {
+                    "name": "ColorModulate",
+                    "type": "vec4",
+                    "values": [ 1.0, 1.0, 1.0, 1.0 ]
+                }
+            ]
         }
     ]
 }

@@ -1,13 +1,13 @@
 #version 150
 
 #moj_import <minecraft:utils.glsl>
+#moj_import <minecraft:texint.glsl>
 
-uniform sampler2D DiffuseSampler;
+uniform sampler2D SearchLayerSampler;
 uniform sampler2D ItemEntityDepthSampler;
 uniform sampler2D ColoredCentersSampler;
-uniform vec2 DiffuseSize;
-uniform float Step;
-uniform float Test;
+uniform vec2 SearchLayerSize;
+uniform int Test;
 
 in vec2 texCoord;
 flat in vec2 inOneTexel;
@@ -16,30 +16,14 @@ flat in float conversionK;
 
 out vec4 outColor;
 
-int intmod(int i, int base) {
-    return i - (i / base * base);
-}
-
-vec4 encodeInt(int i) {
-    float a = 1.0;
-    if (i < 0) {
-        i *= -1;
-        a = 0.5;
-    }
-    int r = intmod(i, 255);
-    i = i / 255;
-    int g = intmod(i, 255);
-    i = i / 255;
-    int b = intmod(i, 255);
-    return vec4(float(r) / 255.0, float(g) / 255.0, float(b) / 255.0, a);
-}
-
 void main() {
-    outColor = texture(DiffuseSampler, texCoord);
-    float width = ceil(DiffuseSize.x / Step);
-    float width2 = ceil(width / Step);
-    float height = ceil(DiffuseSize.y / (Step));
-    float height2 = ceil(height / (Step));
+    if (Test == 1) {
+        outColor = texture(SearchLayerSampler, texCoord);
+    }
+    float width = ceil(SearchLayerSize.x / float(AGGSTEP0));
+    float width2 = ceil(width / float(AGGSTEP1));
+    float height = ceil(SearchLayerSize.y / float(AGGSTEP0));
+    float height2 = ceil(height / float(AGGSTEP1));
     vec2 pos = gl_FragCoord.xy - 0.5;
     float targetNum = pos.x + 1.0;
 
@@ -49,7 +33,7 @@ void main() {
     int px = 0;
     int py = 0;
     for (int iter = 0; iter < int(width2); iter += 1) {
-        float l0count = texture(DiffuseSampler, (vec2(samplepos.x + float(iter), 0.0) + 0.5) / DiffuseSize).r * 255.0;
+        float l0count = texture(SearchLayerSampler, (vec2(samplepos.x + float(iter), 0.0) + 0.5) / SearchLayerSize).r * 255.0;
         if (tmpCounter + l0count >= targetNum) {
             status = 1.0;
             px = iter;
@@ -64,7 +48,7 @@ void main() {
     if (status == 1.0) {
         samplepos = vec2(2.0 * width + width2 + float(px), 0.0);
         for (int iter = 0; iter < int(height2); iter += 1) {
-            float l1count = texture(DiffuseSampler, (vec2(samplepos.x, float(iter)) + 0.5) / DiffuseSize).r * 255.0;
+            float l1count = texture(SearchLayerSampler, (vec2(samplepos.x, float(iter)) + 0.5) / SearchLayerSize).r * 255.0;
             if (tmpCounter + l1count >= targetNum) {
                 status = 2.0;
                 py = iter;
@@ -76,10 +60,10 @@ void main() {
     }
 
     if (status == 2.0) {
-        py *= int(Step);
+        py *= int(AGGSTEP1);
         samplepos = vec2(2.0 * width + float(px), float(py));
-        for (int iter = 0; iter < int(Step); iter += 1) {
-            float l2count = texture(DiffuseSampler, (vec2(samplepos.x, samplepos.y + float(iter)) + 0.5) / DiffuseSize).r * 255.0;
+        for (int iter = 0; iter < int(AGGSTEP1); iter += 1) {
+            float l2count = texture(SearchLayerSampler, (vec2(samplepos.x, samplepos.y + float(iter)) + 0.5) / SearchLayerSize).r * 255.0;
             if (tmpCounter + l2count >= targetNum) {
                 status = 3.0;
                 py += iter;
@@ -91,10 +75,10 @@ void main() {
     }
 
     if (status == 3.0) {
-        px *= int(Step);
+        px *= int(AGGSTEP1);
         samplepos = vec2(width + float(px), float(py));
-        for (int iter = 0; iter < int(Step); iter += 1) {
-            float l3count = texture(DiffuseSampler, (vec2(samplepos.x + float(iter), samplepos.y) + 0.5) / DiffuseSize).r * 255.0;
+        for (int iter = 0; iter < int(AGGSTEP1); iter += 1) {
+            float l3count = texture(SearchLayerSampler, (vec2(samplepos.x + float(iter), samplepos.y) + 0.5) / SearchLayerSize).r * 255.0;
             if (px + iter < int(width) && tmpCounter + l3count >= targetNum) {
                 status = 4.0;
                 px += iter;
@@ -106,10 +90,10 @@ void main() {
     }
 
     if (status == 4.0) {
-        py *= int(Step);
+        py *= int(AGGSTEP0);
         samplepos = vec2(float(px), float(py));
-        for (int iter = 0; iter < int(Step); iter += 1) {
-            float l4count = texture(DiffuseSampler, (vec2(samplepos.x, samplepos.y + float(iter)) + 0.5) / DiffuseSize).r * 255.0;
+        for (int iter = 0; iter < int(AGGSTEP0); iter += 1) {
+            float l4count = texture(SearchLayerSampler, (vec2(samplepos.x, samplepos.y + float(iter)) + 0.5) / SearchLayerSize).r * 255.0;
             if (tmpCounter + l4count >= targetNum) {
                 status = 5.0;
                 py += iter;
@@ -122,10 +106,10 @@ void main() {
 
     if (status == 5.0) {
         vec4 sampleColor;
-        px *= int(Step);
+        px *= int(AGGSTEP0);
         samplepos = vec2(float(px), float(py));
-        for (int iter = 0; iter < int(Step); iter += 1) {
-            sampleColor = texture(ColoredCentersSampler, (vec2(samplepos.x + float(iter), samplepos.y) + 0.5) / DiffuseSize);
+        for (int iter = 0; iter < int(AGGSTEP0); iter += 1) {
+            sampleColor = texture(ColoredCentersSampler, (vec2(samplepos.x + float(iter), samplepos.y) + 0.5) / SearchLayerSize);
             float isLight = sampleColor.a;
             if (tmpCounter + isLight == targetNum) {
                 px += iter;
@@ -151,7 +135,7 @@ void main() {
             outColor = sampleColor;
         }
 
-        if (Test > 0.5 && outColor.a == 0.0) {
+        if (Test == 1 && outColor.a == 0.0) {
             outColor += vec4(0.0, 0.2, 0.0, 1.0);
         }
     }
