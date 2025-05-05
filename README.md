@@ -165,7 +165,6 @@ To access lights to move or modify them (datapack):
 - Custom `transparency` pass that hides light markers and uses blend results of `light_apply` and `light_apply_t` for composite.
 
 ## Configuration
-#### post_effect/transparency.json
 #### shaders/include/utils.glsl
 - `LIGHTRANGE` light approximate range in blocks. Default 128.0.
 - `LIGHTINTENSITY` light strength on solid objects. Default 1.0.
